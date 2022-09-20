@@ -1,0 +1,33 @@
+[
+    {
+        "name": "base",
+        "path": "/base",
+        "meta": {
+            "title": "基础业务",
+            "icon": "el-icon-eleme-filled",
+            "type": "menu"
+        },
+        "children": [
+            {
+                "path": "/base/plan",
+                "name": "plan",
+                "meta": {
+                    "title": "套餐管理",
+                    "icon": "el-icon-document-add",
+                    "type": "menu"
+                },
+                "component": "base/plan/index"
+            },
+            {
+                "path": "/base/order",
+                "name": "order",
+                "meta": {
+                    "title": "订单管理",
+                    "icon": "el-icon-document-copy",
+                    "type": "menu"
+                },
+                "component": "base/order/index"
+            }
+        ]
+    }
+]
