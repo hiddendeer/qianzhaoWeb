@@ -133,7 +133,7 @@
           layout="total, sizes, prev, pager, next"
           :total="data.totalRows"
           :page-sizes="[10, 20, 30]"
-          v-model:currentPage="currentPage"
+          v-model:currentPage="data.currentPage"
           :default-page-size="10"
           @current-change="paginationChange"
           @size-change="handleSizeChange"
@@ -156,13 +156,13 @@ import { ref, reactive, onMounted } from "vue";
 
 let searchForm = ref({ search: "", status: "" });
 const refAddUser = ref(null);
-const currentPage = ref(1);
 const imgView = ref({
   viewImg: false,
   url: "",
 });
 const data = reactive({
   tableData: [],
+  currentPage: 1,
   loading: false,
   totalRows: 0,
   pageNo: 1,

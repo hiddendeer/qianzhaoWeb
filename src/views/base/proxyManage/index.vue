@@ -41,21 +41,21 @@
         </el-table>
       </div>
       <div class="table-page">
-        <el-pagination
+        <!-- <el-pagination
           background
           :small="true"
           layout="total, sizes, prev, pager, next"
           :total="dataObj.totalRows"
           :page-sizes="[10, 20, 30]"
-          v-model:currentPage="currentPage"
+          v-model:currentPage="dataObj.currentPage"
           :default-page-size="10"
           @current-change="paginationChange"
           @size-change="handleSizeChange"
-        ></el-pagination>
+        ></el-pagination> -->
       </div>
     </el-main>
   </el-container>
-  <addUserModel ref="refAddUser"></addUserModel>
+  <addUserModel ref="refAddUser" @emitAddMenu="emitAddMenu"></addUserModel>
 </template>
 
 <script setup>
@@ -64,11 +64,11 @@ import addUserModel from './components/addUserModel.vue'
 import { reactive, ref, onMounted } from "vue";
 
 const refAddUser = ref(null)
-const currentPage = ref(0)
 const dataObj = reactive({
   tableData: [],
   loading: false,
   totalRows: 0,
+  currentPage: 1
 });
 
 onMounted(()=> {
@@ -90,6 +90,10 @@ const paginationChange = (e) => {
 
 const handleSizeChange = (e) => {
 
+}
+
+const emitAddMenu = () => {
+   getProxy();
 }
 
 const openProxy = (type) => {

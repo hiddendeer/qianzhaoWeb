@@ -18,15 +18,19 @@
           <el-input v-model="formData.name" placeholder="输入代理商名称" />
         </el-form-item>
         <el-form-item
-          v-for="(item, index) in comArray"
+          v-for="(item, index) in formData.comArray"
           :key="index"
-          :prop="comArray[index]"
+          :prop="`comArray.${index}.url`"
           :rules="[
             { required: true, message: '代理商域名不能为空', trigger: 'blur' },
           ]"
           label="代理商域名"
         >
-          <el-input v-model="item.url" placeholder="输入代理商域名"> </el-input>
+          <el-input v-model="item.url" placeholder="输入代理商域名">
+            <template #append v-if="index > 0">
+              <span @click="delDomain(index)">删除</span>
+            </template>
+          </el-input>
         </el-form-item>
         <el-form-item label="">
           <el-button @click="addUrl" :icon="Plus" type="primary"
@@ -116,7 +120,12 @@ let formData = ref({
   login_name: "",
   login_password: "",
   phone_number: "",
-  domains: []
+  domains: [],
+  comArray: [
+    {
+      url: "",
+    },
+  ],
 });
 
 const rules = reactive({
@@ -164,19 +173,31 @@ const handleBefore = (e) => {
 
 const submit = async () => {
   formRef.value.validate(async (valid) => {
-    if (comArray.value[0].url == "") {
+    if (formData.value.comArray[0].url == "") {
       ElMessage.error("代理商域名不能为空");
       return;
     }
 
-    const qq = comArray.value.map(item => item.url)
+    const qq = formData.value.comArray.map((item) => item.url);
     formData.value.domains = qq;
-    await api.addProxy(formData.value)
 
     if (valid) {
       if (title.value == "修改代理商") {
       } else {
+        const res = await api.addProxy(formData.value);
+        if (res.errorCode == "") {
+          ElMessage({
+            type: "success",
+            message: "添加成功",
+          });
+        } else {
+          ElMessage({
+            type: "danger",
+            message: res.errorMessage,
+          });
+        }
       }
+      hasView.value = false;
       emit("emitAddMenu");
     }
   });
@@ -200,6 +221,10 @@ const HttpRequest = (data) => {
   hideUpload.value = fileList.value.length >= limit.value;
 };
 
+const delDomain = (index) => {
+  comArray.value.splice(index, 1);
+};
+
 // 关闭处理一些问题
 const closeDialog = () => {
   formData.value = {
@@ -216,7 +241,7 @@ const closeDialog = () => {
 };
 
 const addUrl = () => {
-  comArray.value.push({
+  formData.value.comArray.push({
     url: "",
   });
 };
@@ -267,6 +292,12 @@ defineExpose({
 
 :deep(.el-form-item__content) {
   align-items: unset;
+}
+
+:deep(.el-input-group__append) {
+  background-color: #f56c6c;
+  color: #fff;
+  cursor: pointer;
 }
 
 .el-select {

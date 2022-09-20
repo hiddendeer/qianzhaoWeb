@@ -155,6 +155,7 @@
 						confirmButtonClass: 'el-button--danger'
 					}).then(() => {
 						// this.$TOOL.data.clear()
+						localStorage.clear()
 						this.$router.replace({path: '/login'});
 					}).catch(() => {
 						//取消退出
