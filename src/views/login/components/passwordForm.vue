@@ -119,7 +119,7 @@ export default {
         //   expires: this.form.autologin ? 24 * 60 * 60 : 0,
         // });
         localStorage.setItem('TOKEN', user.data.token)
-        localStorage.setItem('role', user.data.user.role)
+        localStorage.setItem('role', user?.data?.user?.role)
         // this.$TOOL.data.set("USER_INFO", user.data.userInfo);
       } else {
         this.islogin = false;

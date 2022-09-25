@@ -1,4 +1,7 @@
 import axios from 'axios'
+import router from '@/router';
+
+
 const service = axios.create({
   baseURL: window.__MICRO_APP_ENVIRONMENT__ ? window.rawWindow.location.origin : '', // url = base url + request url
   withCredentials: true, // send cookies when cross-domain requests
@@ -32,7 +35,9 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-
+    if (response?.data?.errorCode == '401') {
+      router.push('/login')
+    }
     const res = response.data
 
     // if the custom code is not 20000, it is judged as an error.

@@ -5,25 +5,6 @@
 // 示例如下
 
 const routes = [
-	// {
-	// 	name: "demo",
-	// 	path: "/demo",
-	// 	meta: {
-	// 		icon: "el-icon-eleme-filled",
-	// 		title: "演示",
-	// 		role: ["SA"]
-	// 	},
-	// 	children: [{
-	// 		name: "demopage",
-	// 		path: "/demopage",
-	// 		component: "test/autocode/index",
-	// 		meta: {
-	// 			icon: "el-icon-menu",
-	// 			title: "演示页面",
-	// 			role: ["SA"]
-	// 		}
-	// 	}]
-	// }
     {
         name: "base",
         path: "/base",
@@ -54,15 +35,25 @@ const routes = [
                 component: "base/order/index"
             },
             {
-                path: "/base/proxyManage",
-                name: "proxyManage",
+                path: "/base/taOrder",
+                name: "taOrder",
                 meta: {
-                    title: "代理商管理",
+                    title: "推啊订单",
                     icon: "el-icon-document-copy",
                     type: "menu"
                 },
-                component: "base/proxyManage/index"
+                component: "base/taManage/index"
             }
+            // {
+            //     path: "/base/proxyManage",
+            //     name: "proxyManage",
+            //     meta: {
+            //         title: "代理商管理",
+            //         icon: "el-icon-document-copy",
+            //         type: "menu"
+            //     },
+            //     component: "base/proxyManage/index"
+            // }
         ]
     }
 ]
