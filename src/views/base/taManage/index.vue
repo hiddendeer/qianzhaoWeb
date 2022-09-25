@@ -26,6 +26,13 @@
           >
           </el-table-column>
           <el-table-column prop="third_id" label="ID" />
+          <el-table-column  label="客户姓名" align="center">
+                <template #default="scope">
+              <div v-if="scope.row.status == 'success'">
+                {{scope.row.order.post_name}}
+              </div>
+            </template>
+          </el-table-column>
           <el-table-column prop="status" label="状态" align="center">
             <template #default="scope">
               <div v-if="scope.row.status == 'success'">
