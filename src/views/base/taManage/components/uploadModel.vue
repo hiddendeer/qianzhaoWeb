@@ -1,19 +1,51 @@
 <template>
   <el-dialog v-model="Visible" title="订单上传" :close-on-click-modal="false">
     <template v-if="hasSuccess">
+    <div style="margin: 15px 0;display:flex;justify-content: flex-end;">
+      <el-button type="success" icon="el-icon-plus" text @click="refreshUpload"
+        >重新上传</el-button
+      >
+    </div>
       <el-tabs type="border-card" @tab-click="tabClick">
-        <el-tab-pane label="成功订单">
-          <el-table :data="table.successTable" border  height="50vh"
-            :header-cell-style="{ background: '#f5f7fa', color: '#606266' }">
-               <el-table-column property="status" label="状态" align="center" />
-            <el-table-column property="third_id" label="Id"  />
-            <el-table-column property="message" label="原因"  />
+        <el-tab-pane>
+          <template #label>
+            <span style="color: #67c23a"
+              >成功订单 {{ table.successTotal }}个</span
+            >
+          </template>
+          <el-table
+            :data="table.successTable"
+            border
+            height="50vh"
+            :header-cell-style="{ background: '#f5f7fa', color: '#606266' }"
+          >
+            <el-table-column
+              prop=""
+              label="#"
+              type="index"
+              align="center"
+              width="100"
+            >
+            </el-table-column>
+            <el-table-column property="status" label="状态" align="center">
+              <template #default="scope">
+                <div v-if="scope.row.status == 'success'">
+                  <el-tag type="success">成功</el-tag>
+                </div>
+                <div v-else>
+                  <el-tag type="danger">失败</el-tag>
+                </div>
+              </template>
+            </el-table-column>
+            <el-table-column property="third_id" label="Id" />
+            <el-table-column property="message" label="原因" />
           </el-table>
           <div style="margin-top: 20px">
             <el-pagination
               @current-change="currentChange1"
               background
               layout="prev, pager, next"
+              :default-page-size="15"
               :total="table.successTotal"
             />
           </div>
@@ -28,7 +60,24 @@
             height="50vh"
             :header-cell-style="{ background: '#f5f7fa', color: '#606266' }"
           >
-            <el-table-column property="status" label="状态" />
+            <el-table-column
+              prop=""
+              label="#"
+              type="index"
+              align="center"
+              width="100"
+            >
+            </el-table-column>
+            <el-table-column property="status" label="状态">
+              <template #default="scope">
+                <div v-if="scope.row.status == 'success'">
+                  <el-tag type="success">成功</el-tag>
+                </div>
+                <div v-else>
+                  <el-tag type="danger">失败</el-tag>
+                </div>
+              </template>
+            </el-table-column>
             <el-table-column property="third_id" label="Id" width="150" />
             <el-table-column property="message" label="原因" width="200" />
           </el-table>
@@ -37,6 +86,7 @@
               @current-change="currentChange2"
               background
               layout="prev, pager, next"
+              :default-page-size="15"
               :total="table.errorTotal"
             />
           </div>
@@ -84,6 +134,8 @@ const percentage = ref(0);
 let timer = ref(null);
 const taskId = ref("d0ab8af2-c057-4d1b-b718-204de08e65af");
 
+const emits = defineEmits(['refresh'])
+
 const uploadUrl = window.location.origin + "/api/thirdOrders/createTask";
 const table = reactive({
   successTable: [],
@@ -92,26 +144,24 @@ const table = reactive({
   errorTotal: 0,
   page: 1,
   page2: 1,
-  page_size: 10,
+  page_size: 15,
 });
 
 const extraClick = () => {
   Visible.value = true;
   handleTask();
-
-}
+};
 
 const currentChange1 = (e) => {
-  console.log(e);
+  table.page = e;
+  getTaskOrder();
 };
 const currentChange2 = (e) => {
   table.page2 = e;
   getTaskOrder();
 };
 
-onMounted(async () => {
-
-});
+onMounted(async () => {});
 
 const handleTask = async () => {
   const res = await api.getTask();
@@ -122,6 +172,12 @@ const handleTask = async () => {
   }
 };
 
+const refreshUpload = () => {
+  hasSuccess.value= false;
+  percentage.value = 0;
+  percentageStatus.value = '';
+}
+
 const getTask = async () => {
   const res = await api.getTask();
   if (res.data && res.data.progress == "100") {
@@ -129,6 +185,7 @@ const getTask = async () => {
     getTaskOrder(taskId.value);
     clearInterval(timer.value);
     clearTimeout();
+    emits('refresh')
     setTimeout(() => {
       hasSuccess.value = true;
     }, 1000);
@@ -145,9 +202,9 @@ const getTaskOrder = async () => {
     task_id: taskId.value,
     page: table.page,
     page_size: table.page_size,
-    status: 'successful'
+    status: "success",
   });
-    if (successRes.errorCode == "") {
+  if (successRes.errorCode == "") {
     table.successTable = successRes?.data?.rows;
     table.successTotal = successRes?.data?.total;
   }
@@ -155,6 +212,7 @@ const getTaskOrder = async () => {
     task_id: taskId.value,
     page: table.page2,
     page_size: table.page_size,
+    status: "failed",
   });
   if (res.errorCode == "") {
     table.errorTable = res?.data?.rows;

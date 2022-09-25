@@ -30,7 +30,6 @@ axios.interceptors.request.use(
 // HTTP response 拦截器
 axios.interceptors.response.use(
 	(response) => {
-		console.log(response, 'response');
 		if (response.data?.errorCode == '401') {
 			ElMessageBox.confirm('登录令牌过期，请重新登录。', '无权限访问', {
 				type: 'error',
