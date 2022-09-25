@@ -1,6 +1,16 @@
 <template>
   <el-container>
-    <el-header style="justify-content: flex-end">
+    <el-header>
+      <div>
+        <el-select v-model="dataObj.status" placeholder="选择状态" @change="selectStatus">
+          <el-option
+            v-for="item in statusOption"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </div>
       <el-button type="success" icon="el-icon-plus" text @click="openUpload"
         >上传订单</el-button
       >
@@ -26,10 +36,10 @@
           >
           </el-table-column>
           <el-table-column prop="third_id" label="ID" />
-          <el-table-column  label="客户姓名" align="center">
-                <template #default="scope">
+          <el-table-column label="客户姓名" align="center">
+            <template #default="scope">
               <div v-if="scope.row.status == 'success'">
-                {{scope.row.order.post_name}}
+                {{ scope.row.order.post_name }}
               </div>
             </template>
           </el-table-column>
@@ -76,7 +86,14 @@ const dataObj = reactive({
   totalRows: 0,
   currentPage: 1,
   page_size: 15,
+  status: '',
 });
+
+const statusOption = ref([
+    { label: "全部", value: "" },
+    { label: "成功", value: "success" },
+    { label: "失败", value: "failed" },
+])
 
 onMounted(() => {
   getList();
@@ -86,6 +103,7 @@ const getList = async () => {
   const res = await api.getTaskOrder({
     page: dataObj.currentPage,
     page_size: dataObj.page_size,
+    status: dataObj.status
   });
   if (res.errorCode == "") {
     dataObj.tableData = res?.data?.rows;
@@ -94,6 +112,11 @@ const getList = async () => {
 };
 
 const refresh = () => {
+  getList()
+};
+
+const selectStatus = (e) => {
+    dataObj.status = e
     getList()
 }
 

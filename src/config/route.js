@@ -10,7 +10,7 @@ const routes = [
         path: "/base",
         meta: {
             title: "基础业务",
-            icon: "el-icon-eleme-filled",
+            icon: "el-icon-notebook",
             type: "menu"
         },
         children: [
@@ -34,16 +34,6 @@ const routes = [
                 },
                 component: "base/order/index"
             },
-            {
-                path: "/base/taOrder",
-                name: "taOrder",
-                meta: {
-                    title: "推啊订单",
-                    icon: "el-icon-document-copy",
-                    type: "menu"
-                },
-                component: "base/taManage/index"
-            }
             // {
             //     path: "/base/proxyManage",
             //     name: "proxyManage",
@@ -54,6 +44,27 @@ const routes = [
             //     },
             //     component: "base/proxyManage/index"
             // }
+        ]
+    },
+    {
+        name: "extra",
+        path: "/extra",
+        meta: {
+            title: "扩展功能",
+            icon: "el-icon-cpu",
+            type: "menu"
+        },
+        children: [
+            {
+                path: "/extra/taOrder",
+                name: "taOrder",
+                meta: {
+                    title: "推啊订单",
+                    icon: "el-icon-document-copy",
+                    type: "menu"
+                },
+                component: "base/taManage/index"
+            }
         ]
     }
 ]
