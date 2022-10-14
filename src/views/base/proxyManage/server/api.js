@@ -16,4 +16,11 @@ export default class api {
 		data
 	  })
 	}
+	static statusProxy(uuid,data) {
+	  return request({
+		url: `${config.API_URL}/distributors/`+uuid,
+		method: 'PATCH',
+		data
+	  })
+	}
   }

@@ -34,16 +34,16 @@ const routes = [
                 },
                 component: "base/order/index"
             },
-            // {
-            //     path: "/base/proxyManage",
-            //     name: "proxyManage",
-            //     meta: {
-            //         title: "代理商管理",
-            //         icon: "el-icon-document-copy",
-            //         type: "menu"
-            //     },
-            //     component: "base/proxyManage/index"
-            // }
+            {
+                path: "/base/proxyManage",
+                name: "proxyManage",
+                meta: {
+                    title: "代理商管理",
+                    icon: "el-icon-document-copy",
+                    type: "menu"
+                },
+                component: "base/proxyManage/index"
+            }
         ]
     },
     {

@@ -63,8 +63,8 @@ export default {
     return {
       userType: "admin",
       form: {
-        user: "super",
-        password: "super#123",
+        user: "",
+        password: "",
         autologin: false,
       },
       rules: {

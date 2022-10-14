@@ -223,7 +223,7 @@ const HttpRequest = (data) => {
 };
 
 const delDomain = (index) => {
-  comArray.value.splice(index, 1);
+  formData.value.comArray.splice(index, 1);
 };
 
 // 关闭处理一些问题
