@@ -24,7 +24,7 @@
         >
           <el-table-column
             prop=""
-            label="#"
+            label="序号"
             type="index"
             align="center"
             width="100"

@@ -57,7 +57,6 @@
 </template>
 
 <script>
-import menuJson from "@/utils/menu.json";
 export default {
   data() {
     return {
@@ -120,6 +119,8 @@ export default {
         // });
         localStorage.setItem('TOKEN', user.data.token)
         localStorage.setItem('role', user?.data?.user?.role)
+        localStorage.setItem('username', user?.data?.user?.username)
+        localStorage.removeItem('reload');
         // this.$TOOL.data.set("USER_INFO", user.data.userInfo);
       } else {
         this.islogin = false;
@@ -149,7 +150,6 @@ export default {
         // this.$TOOL.data.set("MENU", routeParams);
         // localStorage.setItem("MENU", JSON.stringify({content: routeParams}))
         // this.$TOOL.data.set("PERMISSIONS", menu.data.permissions);
-
       this.$router.replace({
         path: "/base/plan",
       });

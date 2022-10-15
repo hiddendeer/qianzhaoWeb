@@ -121,7 +121,7 @@
 		created() {
 			var userInfo = this.$TOOL.data.get("USER_INFO");
 			// this.userName = userInfo.userName;
-			this.userName = 'admin';
+			this.userName = localStorage.getItem('username') || '用户';
 			this.userNameF = this.userName.substring(0,1);
 		},
 		methods: {

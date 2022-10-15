@@ -2,10 +2,10 @@
   <el-container>
     <el-header>
       <el-row>
-        <el-col :span="4">
+        <el-col :span="6">
           <el-input
             v-model="searchForm.search"
-            placeholder="名称、编码、收货号码"
+            placeholder="选购号码、收货号码、姓名、身份证、联通订单ID"
           />
         </el-col>
         <el-col :span="3">
@@ -59,12 +59,13 @@
         >
           <el-table-column
             prop=""
-            label="#"
+            label="序号"
             type="index"
             align="center"
             width="100"
           >
           </el-table-column>
+          <el-table-column prop="distributor_name" label="代理商名称" />
           <el-table-column prop="plan_name" label="套餐名称" />
           <el-table-column prop="status" label="订单状态" />
           <el-table-column prop="cert_name" label="客户姓名" />

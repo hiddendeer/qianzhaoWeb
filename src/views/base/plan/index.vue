@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-      <div style="flex: 3;">
+      <div style="flex: 3">
         <el-row>
           <el-col :span="3">
             <el-input v-model="searchForm.search" placeholder="输入商品名称" />
@@ -48,7 +48,7 @@
         >
           <el-table-column
             prop=""
-            label="#"
+            label="序号"
             type="index"
             align="center"
             width="100"
@@ -58,7 +58,12 @@
           <el-table-column prop="goods_id" label="商品ID" />
           <el-table-column prop="base_product_id" label="产品ID" />
           <el-table-column prop="price" label="价格" align="center" />
-          <el-table-column prop="sale" label="销量" align="center" />
+          <el-table-column
+            v-if="role == 'admin'"
+            prop="sale"
+            label="销量"
+            align="center"
+          />
           <el-table-column prop="typeTxt" label="套餐类型" align="center" />
           <el-table-column prop="des_content" label="商品说明" />
           <el-table-column prop="statusTxt" label="商品状态" align="center">
@@ -152,7 +157,16 @@ import api from "./server/api.js";
 import addUserModel from "./components/addUserModel.vue";
 import { Search, Refresh } from "@element-plus/icons-vue";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { ref, reactive, onMounted } from "vue";
+import { ref, reactive, onMounted, nextTick } from "vue";
+
+const role = ref(localStorage.getItem("role"));
+
+nextTick(() => {
+  if (!localStorage.getItem("reload")) {
+    localStorage.setItem("reload", 1);
+    location.reload();
+  }
+});
 
 let searchForm = ref({ search: "", status: "" });
 const refAddUser = ref(null);
@@ -319,10 +333,10 @@ const handleSizeChange = (e) => {
   height: 12px;
   border-radius: 12px;
 }
-  .el-row {
-    width: 100%;
-  }
-  .el-col {
-    padding: 0 1rem;
-  }
+.el-row {
+  width: 100%;
+}
+.el-col {
+  padding: 0 1rem;
+}
 </style>

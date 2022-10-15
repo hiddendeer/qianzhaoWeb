@@ -34,6 +34,23 @@ const routes = [
                 },
                 component: "base/order/index"
             },
+
+        ]
+    },
+
+]
+
+if (localStorage.getItem('role') == 'admin') {
+    routes.push(
+    {
+        name: "proxyManage",
+        path: "/proxyManage",
+        meta: {
+            title: "代理管理",
+            icon: "el-icon-cpu",
+            type: "menu"
+        },
+        children: [
             {
                 path: "/base/proxyManage",
                 name: "proxyManage",
@@ -45,8 +62,9 @@ const routes = [
                 component: "base/proxyManage/index"
             }
         ]
-    },
-    {
+    }
+    );
+    routes.push({
         name: "extra",
         path: "/extra",
         meta: {
@@ -66,9 +84,7 @@ const routes = [
                 component: "base/taManage/index"
             }
         ]
-    }
-]
-
-// const routes = []
+    })
+}
 
 export default routes;
