@@ -30,7 +30,7 @@
           </el-col>
         </el-row>
       </div>
-      <el-button v-if="false" @click="openAdd('add')" type="success" icon="el-icon-plus" text
+      <el-button @click="openAdd('add')" type="success" icon="el-icon-plus" text
         >添加套餐</el-button
       >
     </el-header>
@@ -113,7 +113,6 @@
                   >
                 </template>
                 <el-button
-                  v-if="role!='admin' && false"
                   @click="openAdd('edit', scope)"
                   type="warning"
                   text
@@ -121,7 +120,6 @@
                   >修改</el-button
                 >
                 <el-button
-                  v-if="role!='admin' && false"
                   @click="delShop(scope.row)"
                   type="danger"
                   text
@@ -160,8 +158,6 @@ import addUserModel from "./components/addUserModel.vue";
 import { Search, Refresh } from "@element-plus/icons-vue";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { ref, reactive, onMounted, nextTick } from "vue";
-import {useRoute} from "vue-router"
-const route = useRoute()
 
 const role = ref(localStorage.getItem("role"));
 

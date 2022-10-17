@@ -60,6 +60,26 @@ if (localStorage.getItem('role') == 'admin') {
                     type: "menu"
                 },
                 component: "base/proxyManage/index"
+            },
+            {
+                path: "/base/planConfig",
+                name: "planConfig",
+                meta: {
+                    title: "套餐配置",
+                    icon: "el-icon-document-add",
+                    type: "menu"
+                },
+                component: "base/planConfig/index"
+            },
+            {
+                path: "/base/orderConfig",
+                name: "orderConfig",
+                meta: {
+                    title: "订单管理",
+                    icon: "el-icon-document-copy",
+                    type: "menu"
+                },
+                component: "base/orderConfig/index"
             }
         ]
     }
