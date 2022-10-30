@@ -8,5 +8,6 @@ export default {
 	getType: (param) => {
 		return http.get(`${config.API_URL}/number/plans`, param);
 	},
+	
 
 }

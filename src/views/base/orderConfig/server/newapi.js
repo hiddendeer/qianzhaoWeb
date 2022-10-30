@@ -9,4 +9,18 @@ export default class newapi {
 		params
 	  })
 	}
+
+	static getTask() {
+		return request({
+			url: `${config.API_URL}/orders/getExportTask`,
+			method: 'get',
+		})
+	}
+	static taskOrder(params) {
+		return request({
+			url: `${config.API_URL}/orders/createExportTask`,
+			method: 'post',
+			params
+		})
+	}
   }

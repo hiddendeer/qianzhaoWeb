@@ -57,6 +57,9 @@
           <el-button :icon="Refresh" @click="triggerRefresh" round
             >重置</el-button
           >
+          <el-button :icon="Upload" @click="dcTrigger" round type="primary"
+            >导出</el-button
+          >
         </el-col>
       </el-row>
     </el-header>
@@ -117,17 +120,20 @@
   <el-dialog v-model="imgView.viewImg">
     <img style="width: 100%" :src="imgView.url" />
   </el-dialog>
+    <uploadModel ref="refUpload" @refresh="refresh"></uploadModel>
 </template>
 
 <script setup>
 import api from "./server/api.js";
 import newapi from "./server/newapi.js";
 import { ElMessage, ElMessageBox } from "element-plus";
-import { Search, Refresh } from "@element-plus/icons-vue";
+import { Search, Refresh,Upload } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
+import uploadModel from "./components/uploadModel.vue";
 import { ref, reactive, onMounted } from "vue";
 
 const refAddUser = ref(null);
+const refUpload = ref(null);
 const currentPage = ref(1);
 const imgView = ref({
   viewImg: false,
@@ -176,6 +182,12 @@ const viewImg = (imgUrl) => {
   imgView.value.viewImg = true;
   imgView.value.url = imgUrl;
 };
+
+const dcTrigger = () => {
+  refUpload.value.extraClick(searchForm.value);
+}
+
+
 
 //下架
 const triggerUpDown = async (id, status) => {
