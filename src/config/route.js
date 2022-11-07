@@ -34,6 +34,7 @@ const routes = [
                 },
                 component: "base/order/index"
             },
+ 
 
         ]
     },
@@ -80,6 +81,16 @@ if (localStorage.getItem('role') == 'admin') {
                     type: "menu"
                 },
                 component: "base/orderConfig/index"
+            },
+            {
+                path: "/base/customer",
+                name: "customer",
+                meta: {
+                    title: "商机管理",
+                    icon: "el-icon-document-copy",
+                    type: "menu"
+                },
+                component: "base/customer/index"
             }
         ]
     }
