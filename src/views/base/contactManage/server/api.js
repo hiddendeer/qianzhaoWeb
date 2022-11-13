@@ -23,6 +23,13 @@ export default class newapi {
 			data
 		})
 	}
+	static deleteData(uuid,data) {
+		return request({
+			url: `${config.API_URL}/touchPoints/`+uuid,
+			method: 'delete',
+			data
+		})
+	}
 	static setDefault(uuid,data) {
 		return request({
 			url: `${config.API_URL}/touchPoints/`+uuid+"/setDefault",

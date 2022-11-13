@@ -66,6 +66,13 @@
               @click="triggerEdit(scope.row)"
               >编辑</el-button
             >
+            <el-button
+              type="danger"
+              size="small"
+              text
+              @click="triggerDelete(scope.row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </vrTable>
@@ -177,6 +184,27 @@ const triggerEdit = (row) => {
   refAdd.value.open("edit", row);
   refTable.value.handleData();
 };
+
+const triggerDelete = (row) => {
+  console.log(row);
+    ElMessageBox.confirm(
+    "你确认要删除吗？",
+    "提示",
+    {
+      confirmButtonText: "确认",
+      cancelButtonText: "取消",
+      type: "warning",
+    }
+  ).then(async () => {
+    const res = await api.deleteData(row.uuid);
+    if (res.errorCode == "") {
+      ElMessage.success("删除成功");
+      refTable.value.handleData();
+    } else {
+      ElMessage.error(res.errorMessage);
+    }
+  });
+}
 
 const success = () => {
   refTable.value.handleData();
