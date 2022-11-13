@@ -70,6 +70,20 @@
             placeholder="忘记密码时用"
           />
         </el-form-item>
+        <el-form-item label="选择触点" >
+            <el-select
+            v-model="formData.touch_point_id"
+            placeholder="选择状态"
+            style="width: 100%"
+          >
+            <el-option
+              v-for="item in bindList"
+              :key="item.uuid"
+              :label="item.name"
+              :value="item.uuid"
+            />
+          </el-select>
+        </el-form-item>
       </el-form>
       <div style="display: flex; justify-content: end">
         <el-button @click="hasView = false" type="danger" text>取消</el-button>
@@ -97,6 +111,7 @@ const formRef = ref(null);
 const refUpload = ref(null);
 const limit = ref(1);
 const treeList = ref([]);
+const bindList = ref([]);
 const comArray = ref([
   {
     url: "",
@@ -162,7 +177,14 @@ const rules = reactive({
   ],
 });
 
-onMounted(async () => {});
+onMounted(async () => {getbindList()});
+
+const getbindList = async() => {
+  const res = await api.getTouchPoints()
+  if (res.errorCode == '') {
+    bindList.value = res.data
+  }
+}
 
 const handleSucess = (e) => {
   console.log(e);

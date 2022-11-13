@@ -44,6 +44,11 @@
               <div v-else>否</div>
             </template>
           </el-table-column>
+          <el-table-column prop="is_root" label="绑定触点" align="center">
+            <template #default="scope">
+              {{scope.row.touch_point?.name}}
+            </template>
+          </el-table-column>
           <el-table-column prop="created_at" label="创建时间" align="center" />
           <el-table-column
             label="操作"
@@ -90,6 +95,9 @@
                     >
                     <el-dropdown-item @click="typeSelect('edit', scope.row)"
                       >编辑</el-dropdown-item
+                    >
+                    <el-dropdown-item @click="typeSelect('bindCd', scope.row)"
+                      >绑定触点</el-dropdown-item
                     >
                   </el-dropdown-menu>
                 </template>
@@ -153,6 +161,7 @@
       <el-button type="primary" @click="confirmEdit">确 定</el-button>
     </template>
   </el-dialog>
+  <bindCd ref="refBindCd" @success="bindSuccess"></bindCd>
 </template>
 
 <script setup>
@@ -161,10 +170,12 @@ import addUserModel from "./components/addUserModel.vue";
 import { reactive, ref, onMounted } from "vue";
 import { ElMessage } from "element-plus";
 import { ArrowDown, Plus } from "@element-plus/icons-vue";
+import bindCd from '@/views/base/proxyManage/components/bindCd.vue'
 
 const comArray = ref([]);
 const name = ref("");
 const refAddUser = ref(null);
+const refBindCd = ref(null);
 const editType = ref("");
 const editContent = ref("");
 const dialogShow = ref(false);
@@ -298,6 +309,10 @@ const confirmEdit = async () => {
 };
 
 const typeSelect = (type, data) => {
+  if (type == 'bindCd') {
+refBindCd.value.open(data)
+    return;
+  }
   editType.value = type;
   currentUuid.value = data.uuid;
   dialogShow.value = true;
@@ -308,6 +323,8 @@ const typeSelect = (type, data) => {
       comArray.value.push({ url: item });
     });
   }
+
+  
 };
 
 const refresh = () => {
@@ -324,4 +341,8 @@ const emitAddMenu = () => {
 const openProxy = (type) => {
   refAddUser.value.hasView = true;
 };
+
+const bindSuccess = () => {
+  getProxy();
+}
 </script>

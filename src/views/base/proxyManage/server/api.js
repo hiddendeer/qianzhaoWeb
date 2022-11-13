@@ -23,4 +23,17 @@ export default class api {
 		data
 	  })
 	}
+	static getTouchPoints() {
+	  return request({
+		url: `${config.API_URL}/touchPoints`,
+		method: 'get',
+	  })
+	}
+	static bindTouchPoints(id,data) {
+	  return request({
+		url: `${config.API_URL}/distributors/`+id+"/setTouchPoint",
+		method: 'post',
+		data
+	  })
+	}
   }

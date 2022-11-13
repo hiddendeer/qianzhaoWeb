@@ -91,6 +91,16 @@ if (localStorage.getItem('role') == 'admin') {
                     type: "menu"
                 },
                 component: "base/customer/index"
+            },
+            {
+                path: "/base/contact",
+                name: "contact",
+                meta: {
+                    title: "触点管理",
+                    icon: "el-icon-pointer",
+                    type: "menu"
+                },
+                component: "base/contactManage/index"
             }
         ]
     }
