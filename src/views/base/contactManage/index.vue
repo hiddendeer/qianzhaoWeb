@@ -50,14 +50,14 @@
           }}</el-tag>
         </template>
 
-        <el-table-column align="left" prop="name" label="操作" width="200">
+        <el-table-column align="center" prop="name" label="操作" width="260" fixed="right">
           <template #default="scope">
             <el-button
               type="primary"
               size="small"
               text
               @click="triggerDefault(scope.row)"
-              >设全局</el-button
+              >全局触点</el-button
             >
             <el-button
               type="warning"

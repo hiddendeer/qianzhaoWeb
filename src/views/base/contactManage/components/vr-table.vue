@@ -21,8 +21,7 @@
           >
             <template #default="scope">
               <div v-if="item.slot">
-                <slot :name="item.prop" v-bind="scope">
-                </slot>
+                <slot :name="item.prop" v-bind="scope"> </slot>
               </div>
               <div v-else>
                 {{ scope.row[item.prop] }}
@@ -122,11 +121,11 @@ const handleData = (e) => {
 // api请求渲染方式
 const getApiData = async (e) => {
   loading.value = true;
-  
+
   const tableRes = await api.getTableList(props.url, {
     [props.config.pageAlias]: tableConfig.currentPage,
     [props.config.pageSizeAlias]: tableConfig.pageSize,
-    ...e
+    ...e,
   });
 
   parseData(tableRes.data);
@@ -135,11 +134,11 @@ const getApiData = async (e) => {
 
 const paginationChange = (e) => {
   tableConfig.currentPage = e;
-  getTableData();
+  handleData();
 };
 const pageSizeChange = (e) => {
   tableConfig.pageSize = e;
-  getTableData();
+  handleData();
 };
 
 // 处理配置别名等数据
