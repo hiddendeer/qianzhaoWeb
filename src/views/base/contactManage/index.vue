@@ -173,7 +173,7 @@ const triggerDefault = async (row) => {
 
 const parseDefault = (status) => {
   const defaultObj = {
-    true: { label: "是", type: "primary" },
+    true: { label: "是", type: "success" },
     false: { label: "否", type: "info" },
   };
 

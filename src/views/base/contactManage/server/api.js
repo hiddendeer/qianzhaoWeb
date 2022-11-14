@@ -38,11 +38,9 @@ export default class newapi {
 		})
 	}
 
-    static getTableList(url,params) {
+    static getTableList(apiObj) {
 		return request({
-			url: url,
-			method: 'get',
-			params,
+			...apiObj
 		})
 	}
 

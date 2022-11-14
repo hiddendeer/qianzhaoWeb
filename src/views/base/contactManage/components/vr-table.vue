@@ -66,9 +66,12 @@ const props = defineProps({
     default: () => [],
   },
   // 第一种渲染方式-传url
-  url: {
-    type: String,
-    default: "",
+  apiObj: {
+    type: Object,
+    default: () => ({
+      url: "/api/touchPoints",
+      params: { id: 1 },
+    }),
   },
   // 第二种渲染方式-传data(包含table数据及总数)
   tableData: {
@@ -113,21 +116,24 @@ const handleData = (e) => {
   if (props.tableData && props.tableData.length > 0) {
     data.value = props.tableData[config.dataAlias];
     tableConfig.total = props.tableData[config.totalAlias];
-  } else if (props.url) {
-    getApiData(e);
+  } else if (props.apiObj) {
+    getApiData();
   }
 };
 
 // api请求渲染方式
-const getApiData = async (e) => {
+const getApiData = async () => {
   loading.value = true;
 
-  const tableRes = await api.getTableList(props.url, {
-    [props.config.pageAlias]: tableConfig.currentPage,
-    [props.config.pageSizeAlias]: tableConfig.pageSize,
-    ...e,
-  });
+  const { params } = props.apiObj;
+  if (params) {
+    Object.assign(params, {
+      [props.config.pageAlias]: tableConfig.currentPage,
+      [props.config.pageSizeAlias]: tableConfig.pageSize,
+    });
+  }
 
+  const tableRes = await api.getTableList(props.apiObj);
   parseData(tableRes.data);
   loading.value = false;
 };
