@@ -100,7 +100,7 @@
                     type="primary"
                     text
                     size="small"
-                    >上架</el-button
+                    ><span v-if="role == 'admin'">发布</span><span v-else>上架</span></el-button
                   >
                 </template>
                 <template v-else>
@@ -109,7 +109,7 @@
                     type="primary"
                     text
                     size="small"
-                    >下架</el-button
+                    ><span v-if="role == 'admin'">退市</span><span v-else>下架</span></el-button
                   >
                 </template>
                 <el-button
