@@ -117,12 +117,12 @@ const handleData = (e) => {
     data.value = props.tableData[config.dataAlias];
     tableConfig.total = props.tableData[config.totalAlias];
   } else if (props.apiObj) {
-    getApiData();
+    getApiData(e);
   }
 };
 
 // api请求渲染方式
-const getApiData = async () => {
+const getApiData = async (e) => {
   loading.value = true;
 
   const { params } = props.apiObj;
@@ -130,6 +130,7 @@ const getApiData = async () => {
     Object.assign(params, {
       [props.config.pageAlias]: tableConfig.currentPage,
       [props.config.pageSizeAlias]: tableConfig.pageSize,
+      ...e
     });
   }
 

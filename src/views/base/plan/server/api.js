@@ -39,5 +39,8 @@ export default {
 	},
 	upDown: (data, id) => {
 		return http.patch(`${config.API_URL}/number/plans/` + id, data);
+	},
+	updatePlanPic: (data, id) => {
+		return http.patch(`${config.API_URL}/number/plans/`+ id + `/updatePlanPic`, data);
 	}
 }

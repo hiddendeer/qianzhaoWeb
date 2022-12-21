@@ -86,11 +86,12 @@
           <el-table-column prop="distributor_name" label="代理商名称" />
           <el-table-column prop="plan_name" label="套餐名称" />
           <el-table-column prop="status" label="订单状态" />
+          <el-table-column v-if="role !=`promoter`" prop="first_money" label="首充金额" />
           <el-table-column prop="cert_name" label="客户姓名" />
           <el-table-column prop="cert_id" label="客户身份证" />
           <el-table-column prop="number" label="选购号码" />
 
-          <el-table-column prop="post_name" label="收货人" align="center" />
+          <!-- <el-table-column prop="post_name" label="收货人" align="center" /> -->
           <el-table-column
             prop="post_number"
             label="收货人号码"
@@ -132,6 +133,7 @@ import zhCn from "element-plus/lib/locale/lang/zh-cn";
 import uploadModel from "./components/uploadModel.vue";
 import { ref, reactive, onMounted } from "vue";
 
+const role = ref(localStorage.role);
 const refAddUser = ref(null);
 const refUpload = ref(null);
 const currentPage = ref(1);

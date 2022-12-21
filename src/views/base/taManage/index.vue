@@ -3,37 +3,17 @@
     <el-header>
       <div>
         <el-select v-model="dataObj.status" placeholder="选择状态" @change="selectStatus">
-          <el-option
-            v-for="item in statusOption"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
+          <el-option v-for="item in statusOption" :key="item.value" :label="item.label" :value="item.value" />
         </el-select>
       </div>
-      <el-button type="success" icon="el-icon-plus" text @click="openUpload"
-        >上传订单</el-button
-      >
+      <el-button type="success" icon="el-icon-plus" text @click="openUpload">上传订单</el-button>
     </el-header>
     <el-main class="nopadding">
       <div class="tableclass">
-        <el-table
-          ref="table"
-          style="height: 100%"
-          :data="dataObj.tableData"
-          :header-cell-style="{ background: '#f5f7fa', color: '#606266' }"
-          row-key="id"
-          border
-          v-loading="dataObj.loading"
-        >
-          <el-table-column
-            prop=""
-            label="#"
-            type="index"
-            align="center"
-            width="100"
-            :index="indexMethod"
-          >
+        <el-table ref="table" style="height: 100%" :data="dataObj.tableData"
+          :header-cell-style="{ background: '#f5f7fa', color: '#606266' }" row-key="id" border
+          v-loading="dataObj.loading">
+          <el-table-column prop="" label="#" type="index" align="center" width="100" :index="indexMethod">
           </el-table-column>
           <el-table-column prop="third_id" label="ID" />
           <el-table-column label="客户姓名" align="center">
@@ -58,16 +38,9 @@
         </el-table>
       </div>
       <div class="table-page">
-        <el-pagination
-          background
-          :small="true"
-          layout="total, prev, pager, next"
-          :total="dataObj.totalRows"
-          :page-sizes="[10, 20, 30]"
-          v-model:currentPage="dataObj.currentPage"
-          :default-page-size="15"
-          @current-change="paginationChange"
-        ></el-pagination>
+        <el-pagination background :small="true" layout="total, prev, pager, next" :total="dataObj.totalRows"
+          :page-sizes="[10, 20, 30]" v-model:currentPage="dataObj.currentPage" :default-page-size="15"
+          @current-change="paginationChange"></el-pagination>
       </div>
     </el-main>
   </el-container>
@@ -90,9 +63,9 @@ const dataObj = reactive({
 });
 
 const statusOption = ref([
-    { label: "全部", value: "" },
-    { label: "成功", value: "success" },
-    { label: "失败", value: "failed" },
+  { label: "全部", value: "" },
+  { label: "成功", value: "success" },
+  { label: "失败", value: "failed" },
 ])
 
 onMounted(() => {
@@ -116,8 +89,8 @@ const refresh = () => {
 };
 
 const selectStatus = (e) => {
-    dataObj.status = e
-    getList()
+  dataObj.status = e
+  getList()
 }
 
 const openUpload = () => {
@@ -135,7 +108,7 @@ const indexMethod = (index) => {
   return index;
 };
 
-const handleSizeChange = (e) => {};
+const handleSizeChange = (e) => { };
 
-const uploadTa = () => {};
+const uploadTa = () => { };
 </script>

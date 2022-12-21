@@ -4,7 +4,7 @@
 // routes 显示在左侧菜单中的路由(显示顺序在动态路由之前)
 // 示例如下
 
-const routes = [
+let routes = [
     {
         name: "base",
         path: "/base",
@@ -34,78 +34,140 @@ const routes = [
                 },
                 component: "base/order/index"
             },
- 
+
 
         ]
     },
 
 ]
 
+if (localStorage.getItem('role') == 'distributor') {
+    routes.push(
+        {
+            name: "spread ",
+            path: "/spread ",
+            meta: {
+                title: "推广人",
+                icon: "el-icon-notebook",
+                type: "menu"
+            },
+            children: [
+                {
+                    path: "/base/spread",
+                    name: "spread",
+                    meta: {
+                        title: "推广管理",
+                        icon: "el-icon-share",
+                        type: "menu"
+                    },
+                    component: "base/spread/index"
+                },
+            ]
+        }
+    );
+
+
+}
+
+routes.push(
+    {
+        name: "spreadH5",
+        path: "/spreadH5",
+        meta: {
+            title: "推广人",
+            icon: "el-icon-notebook",
+            hidden: true,
+            fullpage: true
+        },
+        component: "h5/spreadIndex"
+
+    }
+)
+
+// if (localStorage.getItem('role') == 'promoter') {
+//     console.log('pop');
+//     routes.push(
+//         {
+//             name: "spreadH5",
+//             path: "/spreadH5",
+//             meta: {
+//                 title: "推广人",
+//                 icon: "el-icon-notebook",
+//                 hidden: true,
+//                 fullpage: true
+//             },
+//             component: "h5/spreadIndex"
+
+//         }
+//     )
+// }
+
 if (localStorage.getItem('role') == 'admin') {
     routes.push(
-    {
-        name: "proxyManage",
-        path: "/proxyManage",
-        meta: {
-            title: "代理管理",
-            icon: "el-icon-cpu",
-            type: "menu"
-        },
-        children: [
-            {
-                path: "/base/proxyManage",
-                name: "proxyManage",
-                meta: {
-                    title: "代理商管理",
-                    icon: "el-icon-document-copy",
-                    type: "menu"
-                },
-                component: "base/proxyManage/index"
+        {
+            name: "proxyManage",
+            path: "/proxyManage",
+            meta: {
+                title: "代理管理",
+                icon: "el-icon-cpu",
+                type: "menu"
             },
-            {
-                path: "/base/planConfig",
-                name: "planConfig",
-                meta: {
-                    title: "套餐配置",
-                    icon: "el-icon-document-add",
-                    type: "menu"
+            children: [
+                {
+                    path: "/base/proxyManage",
+                    name: "proxyManage",
+                    meta: {
+                        title: "代理商管理",
+                        icon: "el-icon-document-copy",
+                        type: "menu"
+                    },
+                    component: "base/proxyManage/index"
                 },
-                component: "base/planConfig/index"
-            },
-            {
-                path: "/base/orderConfig",
-                name: "orderConfig",
-                meta: {
-                    title: "订单管理",
-                    icon: "el-icon-document-copy",
-                    type: "menu"
+                {
+                    path: "/base/planConfig",
+                    name: "planConfig",
+                    meta: {
+                        title: "套餐配置",
+                        icon: "el-icon-document-add",
+                        type: "menu"
+                    },
+                    component: "base/planConfig/index"
                 },
-                component: "base/orderConfig/index"
-            },
-            {
-                path: "/base/customer",
-                name: "customer",
-                meta: {
-                    title: "商机管理",
-                    icon: "el-icon-document-copy",
-                    type: "menu"
+                {
+                    path: "/base/orderConfig",
+                    name: "orderConfig",
+                    meta: {
+                        title: "订单管理",
+                        icon: "el-icon-document-copy",
+                        type: "menu"
+                    },
+                    component: "base/orderConfig/index"
                 },
-                component: "base/customer/index"
-            },
-            {
-                path: "/base/contact",
-                name: "contact",
-                meta: {
-                    title: "触点管理",
-                    icon: "el-icon-pointer",
-                    type: "menu"
+                {
+                    path: "/base/customer",
+                    name: "customer",
+                    meta: {
+                        title: "商机管理",
+                        icon: "el-icon-document-copy",
+                        type: "menu"
+                    },
+                    component: "base/customer/index"
                 },
-                component: "base/contactManage/index"
-            }
-        ]
-    }
+                {
+                    path: "/base/contact",
+                    name: "contact",
+                    meta: {
+                        title: "触点管理",
+                        icon: "el-icon-pointer",
+                        type: "menu"
+                    },
+                    component: "base/contactManage/index"
+                }
+            ]
+        }
     );
-    routes.push({
+    routes.push(
+        {
         name: "extra",
         path: "/extra",
         meta: {
@@ -125,7 +187,9 @@ if (localStorage.getItem('role') == 'admin') {
                 component: "base/taManage/index"
             }
         ]
-    })
+    
+    }
+    )
 }
 
 export default routes;

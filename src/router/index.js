@@ -30,7 +30,6 @@ document.title = config.APP_NAME
 var isGetRouter = false;
 
 router.beforeEach(async (to, from, next) => {
-
 	NProgress.start()
 	//动态标题
 	document.title = to.meta.title ? `${to.meta.title} - ${config.APP_NAME}` : `${config.APP_NAME}`
@@ -71,12 +70,15 @@ router.beforeEach(async (to, from, next) => {
 		let userMenu = treeFilter(userRoutes, node => {
 			return node.meta.role ? node.meta.role.filter(item=>userInfo.role.indexOf(item)>-1).length > 0 : true
 		})
+
 		let menu = [...userMenu, ...apiMenu]
+		console.log(menu,'menu');
 		var menuRouter = filterAsyncRouter(menu)
 		menuRouter = flatAsyncRoutes(menuRouter)
 		menuRouter.forEach(item => {
 			router.addRoute("layout", item)
 		})
+
 		routes_404_r = router.addRoute(routes_404)
 		if (to.matched.length == 0) {
 			router.push(to.fullPath);

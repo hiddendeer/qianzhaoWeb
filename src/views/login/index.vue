@@ -59,7 +59,7 @@
       <div class="login-form">
         <div class="login-header">
           <div class="logo">
-            <img :alt="$CONFIG.APP_NAME" src="img/logo.png" />
+            <!-- <img :alt="$CONFIG.APP_NAME" src="img/logo.png" /> -->
             <label>{{ $CONFIG.APP_NAME }}</label>
           </div>
         </div>
@@ -195,6 +195,7 @@ export default {
   height: 100%;
   background: #fff;
   display: flex;
+  overflow: hidden;
 }
 .login_adv {
   width: 39%;
@@ -256,7 +257,7 @@ export default {
 
 .login_main {
   flex: 1;
-  overflow: auto;
+  overflow: hidden;
   display: flex;
 }
 .login-form {

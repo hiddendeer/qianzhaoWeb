@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width,initial-scale=1.0">
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 		<link rel="icon" href="<%= BASE_URL %>favicon.ico">
 		<title><%= VUE_APP_TITLE %></title>
 		<script type="text/javascript">
@@ -51,12 +51,12 @@
 		</div>
 		<!-- built files will be auto injected -->
 	</body>
-	<div id="versionCheck" style="display: none;position: absolute;z-index: 99;top:0;left:0;right:0;bottom:0;padding:40px;background:rgba(255,255,255,0.9);color: #333;">
+	<!-- <div id="versionCheck" style="display: none;position: absolute;z-index: 99;top:0;left:0;right:0;bottom:0;padding:40px;background:rgba(255,255,255,0.9);color: #333;">
 		<h2 style="line-height: 1;margin: 0;font-size: 24px;">当前使用的浏览器内核版本过低 :(</h2>
 		<p style="line-height: 1;margin: 0;font-size: 14px;margin-top: 20px;opacity: 0.8;">当前版本：<span id="versionCheck-type">--</span> <span id="versionCheck-version">--</span></p>
 		<p style="line-height: 1;margin: 0;font-size: 14px;margin-top: 10px;opacity: 0.8;">最低版本要求：Chrome 71+、Firefox 65+、Safari 12+、Edge 97+。</p>
 		<p style="line-height: 1;margin: 0;font-size: 14px;margin-top: 10px;opacity: 0.8;">请升级浏览器版本，或更换现代浏览器，如果你使用的是双核浏览器,请切换到极速/高速模式。</p>
-	</div>
+	</div> -->
 	<script type="text/javascript">
 	function getBrowerInfo(){
 		var userAgent = window.navigator.userAgent;
@@ -101,10 +101,10 @@
 		var materVer = browerInfo.version.split('.')[0]
         return materVer >= minVer[browerInfo.type]
 	}
-	if(!isSatisfyBrower()){
-		document.getElementById('versionCheck').style.display = 'block';
-		document.getElementById('versionCheck-type').innerHTML = getBrowerInfo().type;
-		document.getElementById('versionCheck-version').innerHTML = getBrowerInfo().version;
-	}
+	// if(!isSatisfyBrower()){
+	// 	document.getElementById('versionCheck').style.display = 'block';
+	// 	document.getElementById('versionCheck-type').innerHTML = getBrowerInfo().type;
+	// 	document.getElementById('versionCheck-version').innerHTML = getBrowerInfo().version;
+	// }
 	</script>
 </html>

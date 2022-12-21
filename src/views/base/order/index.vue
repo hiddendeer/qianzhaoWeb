@@ -68,11 +68,12 @@
           <el-table-column prop="distributor_name" label="代理商名称" />
           <el-table-column prop="plan_name" label="套餐名称" />
           <el-table-column prop="status" label="订单状态" />
+          <el-table-column prop="first_money" label="首充金额" />
           <el-table-column prop="cert_name" label="客户姓名" />
           <el-table-column prop="cert_id" label="客户身份证" />
           <el-table-column prop="number" label="选购号码" />
 
-          <el-table-column prop="post_name" label="收货人" align="center" />
+          <!-- <el-table-column prop="post_name" label="收货人" align="center" /> -->
           <el-table-column
             prop="post_number"
             label="收货人号码"
@@ -105,12 +106,16 @@
 </template>
 
 <script setup>
+import data from "./config.js"
 import api from "./server/api.js";
 import { ElMessage, ElMessageBox } from "element-plus";
 import { Search, Refresh } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
 import { ref, reactive, onMounted } from "vue";
 
+console.log(data);
+
+const role = ref(localStorage.role);
 const refAddUser = ref(null);
 const currentPage = ref(1);
 const imgView = ref({
@@ -241,7 +246,10 @@ const getList = async () => {
 
 //查询
 const triggerSearch = () => {
-  getList();
+  data.a = 2
+  sessionStorage.setItem('a',data.a)
+  console.log(data);
+  // getList();
 };
 
 // 重置
