@@ -11,4 +11,11 @@ export default class api {
 			params
 		})
 	}
+	static withdrawals(data) {
+		return request({
+			url: `${config.API_URL}/withdrawals`,
+			method: 'post',
+			data
+		})
+	}
 }

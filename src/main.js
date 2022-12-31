@@ -6,6 +6,7 @@ import i18n from './locales'
 import router from './router'
 import store from './store'
 import 'vant/lib/index.css';
+import './assets/tailwindcss.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 

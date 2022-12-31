@@ -62,6 +62,16 @@ if (localStorage.getItem('role') == 'distributor') {
                     },
                     component: "base/spread/index"
                 },
+                {
+                    path: "/base/with",
+                    name: "with",
+                    meta: {
+                        title: "提现管理",
+                        icon: "el-icon-sugar",
+                        type: "menu"
+                    },
+                    component: "base/withdrawals/index"
+                },
             ]
         }
     );
