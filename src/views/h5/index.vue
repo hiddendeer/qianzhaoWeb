@@ -1,38 +1,54 @@
 <template>
     <div>
-        <van-nav-bar :title="title" left-arrow  @click-left="onClickLeft">
+        <van-nav-bar :title="title" right-text="退出登录" @click-right="onClickRight">
 
         </van-nav-bar>
         <!-- <van-dropdown-menu>
   <van-dropdown-item v-model="value1" :options="option1" />
 </van-dropdown-menu> -->
-        <div style="height: calc(100vh - 50px);overflow-y: scroll;" v-if="active == 0">
-            <div class="card1" v-for="item in orderList">
-                <div class="card2">
-                    <div class="card3">
-                        <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
-                            <span style="color: #969799">客户姓名</span>
-                            <span class="title">{{ item.post_name }}</span>
+        <div style="height: calc(100vh - 100px);overflow-y: scroll;" v-if="active == 0">
+            <van-grid>
+                <van-grid direction="horizontal" class="w-full" :column-num="1">
+                    <van-grid-item icon="photo-o" text="海报1">
+                        <div class="flex flex-col">
+                            <van-image class="h-[100px]" src="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg" />
+                            <div class="flex justify-center mt-[10px]">海报</div>
                         </div>
-                        <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
-                            <span style="color: #969799">订单状态</span>
-                            <span><van-tag type="primary" round>{{ item.status }}</van-tag></span>
-                        </div>
-                        <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
-                            <span style="color: #969799">首充金额</span>
-                            <span>{{ item.first_money }}元</span>
-                        </div>
-                        <div style="display: flex;justify-content: space-between;">
-                            <div style="color: #969799">下单时间</div>
-                            <div>{{ item.created_at }}</div>
+                    </van-grid-item>
+                </van-grid>
+            </van-grid>
+            <div class="mt-[30px] px-[10px] min-h-[300px] ">
+                <div class="font-bold text-[14px] p-[5px]">订单信息</div>
+                <div >
+                    <div class="card1" v-for="item in orderList">
+                        <div class="card2">
+                            <div class="card3">
+                                <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
+                                    <span style="color: #969799">客户姓名</span>
+                                    <span class="title">{{ item?.post_name }}</span>
+                                </div>
+                                <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
+                                    <span style="color: #969799">订单状态</span>
+                                    <span><van-tag type="primary" round>{{ item?.status }}</van-tag></span>
+                                </div>
+                                <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
+                                    <span style="color: #969799">首充金额</span>
+                                    <span>{{ item?.first_money }}元</span>
+                                </div>
+                                <div style="display: flex;justify-content: space-between;">
+                                    <div style="color: #969799">下单时间</div>
+                                    <div>{{ item?.created_at }}</div>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
-
+                    <div class="flex justify-center text-[14px] text-[#1989FA]" @click="jumpOrder">查看全部订单</div>
                 </div>
             </div>
         </div>
         <div class="overflow-y-scroll" style="height: calc(100vh - 100px);" v-if="active == 1">
-        <div class="mt-[15px] ml-[20px] text-[15px] font-bold">可提现金额</div>
+            <div class="mt-[15px] ml-[20px] text-[15px] font-bold">可提现金额</div>
             <div class="w-[80%] h-[80px] flex items-center justify-center text-[14px] text-[#E6A23C] font-bold">
                 <span class="text-[20px]">0</span>&nbsp;元
             </div>
@@ -42,6 +58,10 @@
             <van-cell title="密码修改" is-link @click="jumpInfo" />
 
         </div>
+        <van-tabbar v-model="active" @change="onChange">
+            <van-tabbar-item icon="home-o">主页</van-tabbar-item>
+            <van-tabbar-item icon="friends-o">个人中心</van-tabbar-item>
+        </van-tabbar>
     </div>
 </template>
 
@@ -55,10 +75,10 @@ const $router = useRouter();
 
 const value1 = ref(0);
 const option1 = [
-      { text: '全部', value: 0 },
-      { text: '待审核', value: 1 },
-      { text: '审核中', value: 2 },
-    ];
+    { text: '全部', value: 0 },
+    { text: '待审核', value: 1 },
+    { text: '审核中', value: 2 },
+];
 
 const active = ref(0);
 const title = ref('订单信息');
@@ -79,7 +99,7 @@ const onChange = (index) => {
     }
 }
 
-const getInfo = async() => {
+const getInfo = async () => {
     const res = await api.getInfo();
     if (res.errorCode == '') {
         personInfo.value = res.data;
@@ -93,12 +113,13 @@ const jumpInfo = (type) => {
             path: "/spreadWithUpload"
         })
     }
-    
+
 }
 
-const onClickLeft = () => {
+const onClickRight = () => {
+    localStorage.clear();
     $router.push({
-        path: "/spreadH5",
+        path: "/login",
     })
 }
 const clickCell = () => {
@@ -124,18 +145,24 @@ const searchObj = ref({
     search: '',
     goods_id: '',
     page: 1,
-    page_size: 30
+    page_size: 2
 })
 
 const orderList = ref([])
 
 const getOrder = async () => {
     const res = await api.getOrder({
-        ...searchObj
+        ...searchObj.value
     })
     if (res.errorCode == '') {
-        orderList.value = res?.data;
-    } 
+        orderList.value = res?.data.rows;
+    }
+}
+
+const jumpOrder = () => {
+    $router.push({
+        path: '/spreadIndex'
+    })
 }
 
 

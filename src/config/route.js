@@ -72,6 +72,17 @@ if (localStorage.getItem('role') == 'distributor') {
                     },
                     component: "base/withdrawals/index"
                 },
+                {
+                    path: "/base/examine",
+                    name: "examine",
+                    meta: {
+                        title: "待审核管理",
+                        icon: "el-icon-DocumentCopy",
+                        type: "menu"
+                    },
+                    component: "base/examine/index"
+                },
+       
             ]
         }
     );
@@ -89,9 +100,45 @@ routes.push(
             hidden: true,
             fullpage: true
         },
+        component: "h5/index"
+
+    },
+    {
+        name: "spreadIndex",
+        path: "/spreadIndex",
+        meta: {
+            title: "推广人",
+            icon: "el-icon-notebook",
+            hidden: true,
+            fullpage: true
+        },
         component: "h5/spreadIndex"
 
-    }
+    },
+    {
+        name: "spreadWithUpload",
+        path: "/spreadWithUpload",
+        meta: {
+            title: "推广人",
+            icon: "el-icon-notebook",
+            hidden: true,
+            fullpage: true
+        },
+        component: "h5/components/withUpload"
+
+    },
+    {
+        name: "spreadPoster",
+        path: "/spreadPoster",
+        meta: {
+            title: "推广人",
+            icon: "el-icon-notebook",
+            hidden: true,
+            fullpage: true
+        },
+        component: "h5/poster"
+
+    },
 )
 
 // if (localStorage.getItem('role') == 'promoter') {
