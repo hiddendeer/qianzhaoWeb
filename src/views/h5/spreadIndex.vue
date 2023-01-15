@@ -1,12 +1,12 @@
 <template>
     <div>
-        <van-nav-bar :title="title" left-arrow  @click-left="onClickLeft">
+        <van-nav-bar :title="title" left-arrow @click-left="onClickLeft">
 
         </van-nav-bar>
-        <!-- <van-dropdown-menu>
-  <van-dropdown-item v-model="value1" :options="option1" />
-</van-dropdown-menu> -->
-        <div style="height: calc(100vh - 50px);overflow-y: scroll;" v-if="active == 0">
+        <van-dropdown-menu>
+            <van-dropdown-item v-model="searchObj.has_completed" :options="option1" @change="dropChange" />
+        </van-dropdown-menu>
+        <div style="height: calc(100vh - 100px);overflow-y: scroll;" v-if="active == 0">
             <div class="card1" v-for="item in orderList">
                 <div class="card2">
                     <div class="card3">
@@ -32,9 +32,9 @@
             </div>
         </div>
         <div class="overflow-y-scroll" style="height: calc(100vh - 100px);" v-if="active == 1">
-        <div class="mt-[15px] ml-[20px] text-[15px] font-bold">可提现金额</div>
+            <div class="mt-[15px] ml-[20px] text-[15px] font-bold">可提现金额</div>
             <div class="w-[80%] h-[80px] flex items-center justify-center text-[14px] text-[#E6A23C] font-bold">
-                <span class="text-[20px]">0</span>&nbsp;元
+                <span class="text-[20px]">{{ personInfo.money }}</span>&nbsp;元
             </div>
             <van-cell title="提现" value="每周五开放" is-link @click="clickCell" />
             <van-cell title="提现设置" is-link @click="jumpInfo('setting')" />
@@ -53,17 +53,17 @@ import { ref, onMounted } from 'vue';
 
 const $router = useRouter();
 
-const value1 = ref(0);
 const option1 = [
-      { text: '全部', value: 0 },
-      { text: '待审核', value: 1 },
-      { text: '审核中', value: 2 },
-    ];
+    { text: '全部', value: 'all' },
+    { text: '待审核', value: 'completed' },
+    { text: '审核中', value: 'uncompleted' },
+];
 
 const active = ref(0);
 const title = ref('订单信息');
 const username = ref(localStorage.getItem('username'))
 const personInfo = ref({})
+
 
 onMounted(() => {
     getInfo();
@@ -79,7 +79,7 @@ const onChange = (index) => {
     }
 }
 
-const getInfo = async() => {
+const getInfo = async () => {
     const res = await api.getInfo();
     if (res.errorCode == '') {
         personInfo.value = res.data;
@@ -93,7 +93,7 @@ const jumpInfo = (type) => {
             path: "/spreadWithUpload"
         })
     }
-    
+
 }
 
 const onClickLeft = () => {
@@ -124,24 +124,31 @@ const searchObj = ref({
     search: '',
     goods_id: '',
     page: 1,
-    page_size: 30
+    page_size: 999,
+    has_completed: 'all'
 })
 
 const orderList = ref([])
 
 const getOrder = async () => {
-    const res = await api.getOrder({
-        ...searchObj
-    })
+    const res = await api.getOrder(searchObj.value)
     if (res.errorCode == '') {
-        orderList.value = res?.data;
-    } 
+        orderList.value = res?.data?.rows;
+    }
+}
+
+const dropChange = (e) => {
+    searchObj.value.has_completed = e;
+    getOrder();
 }
 
 
 </script>
 
 <style lang="scss" scoped>
+body{
+    overflow: hidden !important;
+}
 .card1 {
     box-sizing: border-box;
     // height: 100%;

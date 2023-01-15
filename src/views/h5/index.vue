@@ -3,23 +3,14 @@
         <van-nav-bar :title="title" right-text="退出登录" @click-right="onClickRight">
 
         </van-nav-bar>
-        <!-- <van-dropdown-menu>
-  <van-dropdown-item v-model="value1" :options="option1" />
-</van-dropdown-menu> -->
-        <div style="height: calc(100vh - 100px);overflow-y: scroll;" v-if="active == 0">
-            <van-grid>
-                <van-grid direction="horizontal" class="w-full" :column-num="1">
-                    <van-grid-item icon="photo-o" text="海报1">
-                        <div class="flex flex-col">
-                            <van-image class="h-[100px]" src="https://fastly.jsdelivr.net/npm/@vant/assets/leaf.jpeg" />
-                            <div class="flex justify-center mt-[10px]">海报</div>
-                        </div>
-                    </van-grid-item>
-                </van-grid>
-            </van-grid>
-            <div class="mt-[30px] px-[10px] min-h-[300px] ">
+        <van-swipe class="my-swipe" indicator-color="white">
+                <van-swipe-item>1</van-swipe-item>
+            </van-swipe>
+        <div style="height: calc(100vh - 200px);overflow-y: scroll;" v-if="active == 0">
+
+            <div class="mt-[15px] px-[10px] min-h-[300px]">
                 <div class="font-bold text-[14px] p-[5px]">订单信息</div>
-                <div >
+                <div>
                     <div class="card1" v-for="item in orderList">
                         <div class="card2">
                             <div class="card3">
@@ -47,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="overflow-y-scroll" style="height: calc(100vh - 100px);" v-if="active == 1">
+        <div class="overflow-y-scroll" style="height: calc(100vh - 200px);" v-if="active == 1">
             <div class="mt-[15px] ml-[20px] text-[15px] font-bold">可提现金额</div>
             <div class="w-[80%] h-[80px] flex items-center justify-center text-[14px] text-[#E6A23C] font-bold">
                 <span class="text-[20px]">0</span>&nbsp;元
@@ -73,12 +64,15 @@ import { ref, onMounted } from 'vue';
 
 const $router = useRouter();
 
-const value1 = ref(0);
-const option1 = [
-    { text: '全部', value: 0 },
-    { text: '待审核', value: 1 },
-    { text: '审核中', value: 2 },
-];
+const current = ref(0);
+const items = [{
+    background: '#09BE4F'
+}, {
+    background: '#FFB703'
+}, {
+    background: '#B2B2B2'
+}]
+
 
 const active = ref(0);
 const title = ref('订单信息');
@@ -205,5 +199,13 @@ const jumpOrder = () => {
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
+}
+
+.my-swipe .van-swipe-item {
+    color: #fff;
+    font-size: 20px;
+    line-height: 150px;
+    text-align: center;
+    background-color: #39a9ed;
 }
 </style>
