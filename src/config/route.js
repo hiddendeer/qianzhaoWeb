@@ -34,6 +34,7 @@ let routes = [
                 },
                 component: "base/order/index"
             },
+ 
 
 
         ]
@@ -137,6 +138,30 @@ routes.push(
             fullpage: true
         },
         component: "h5/poster"
+
+    },
+    {
+        name: "spreadPassword",
+        path: "/spreadPassword",
+        meta: {
+            title: "推广人",
+            icon: "el-icon-notebook",
+            hidden: true,
+            fullpage: true
+        },
+        component: "h5/editPassword"
+
+    },
+    {
+        name: "spreadRecord",
+        path: "/spreadRecord",
+        meta: {
+            title: "推广人",
+            icon: "el-icon-notebook",
+            hidden: true,
+            fullpage: true
+        },
+        component: "h5/withRecord"
 
     },
 )

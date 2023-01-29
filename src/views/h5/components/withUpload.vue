@@ -1,14 +1,16 @@
 <template>
     <div>
-        <van-nav-bar title="提现设置" right-text="返回" @click-right="onClickRight">
+        <van-nav-bar title="提现设置" left-arrow @click-left="onClickLeft">
         </van-nav-bar>
         <div class="mt-[80px]">
             <van-form @submit="onSubmit">
                 <van-cell-group inset>
                     <van-cell title="当前状态" :value="statusObj[viewObj.status]" />
+                    <van-field v-model="formData.full_name" name="姓名" label="姓名" placeholder="请填写姓名"
+                        :rules="[{ required: true, message: '请填写姓名' }]" />
                     <van-field v-model="formData.phone_number" name="手机号" label="手机号" placeholder="请填写手机号"
-                        :rules="[{ required: true, message: '请填写手机号' },{validator:validator,message: '请填写正确的手机号'}]" />
-                    <van-field name="uploader" label="收款码上传" :rules="[{ required: true, message: '请上传收款码' },]" >
+                        :rules="[{ required: true, message: '请填写手机号' }, { validator: validator, message: '请填写正确的手机号' }]" />
+                    <van-field name="uploader" label="收款码上传" :rules="[{ required: true, message: '请上传收款码' },]">
                         <template #input>
                             <van-uploader v-model="formData.imgList" :after-read="afterRead" max-count="1" />
                         </template>
@@ -26,10 +28,11 @@
 </template>
 
 <script setup>
+import { state } from "../server/vuex.js";
 import api from '../server/api.js';
 import { showToast } from 'vant';
 import { ref, onMounted } from "vue";
-import {useRouter} from "vue-router";
+import { useRouter } from "vue-router";
 
 const $router = useRouter();
 
@@ -43,6 +46,7 @@ const statusObj = {
 
 const formData = ref({
     phone_number: '',
+    full_name: '',
     imgList: []
 })
 
@@ -54,21 +58,24 @@ const fileObj = ref();
 
 onMounted(async () => {
     const res = await api.getInfo();
-    if (res.errorCode=='') {
+    if (res.errorCode == '') {
         viewObj.value.status = res.data.status;
         formData.value.phone_number = res.data.phone_number;
-        formData.value.imgList = [{url: res.data?.payment?.qr_code}]
+        formData.value.full_name = res.data.full_name;
+        formData.value.imgList = [{ url: res.data?.payment?.qr_code }]
     }
 })
 
-const onSubmit = async() => {
+const onSubmit = async () => {
     let formdata = new FormData();
     if (fileObj.value) {
         formdata.append('qr_code', fileObj.value);
     }
     formdata.append('phone_number', formData.value.phone_number);
+    formdata.append('full_name', formData.value.full_name);
     const res = await api.updateInfo(formdata);
-    if (res.errorCode=='') {
+    if (res.errorCode == '') {
+        state.index = 1;
         showToast('提交成功');
         $router.push({
             path: "/spreadH5"
@@ -82,7 +89,8 @@ const afterRead = async (file) => {
     console.log(fileObj.value);
 }
 
-const onClickRight = () => {
+const onClickLeft = () => {
+    state.index = 1;
     $router.push({
         path: "/spreadH5"
     })

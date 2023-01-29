@@ -11,6 +11,7 @@
                     <el-table-column prop="" label="序号" type="index" align="center" width="100">
                     </el-table-column>
                     <el-table-column prop="name" align="center" label="账号名称" />
+                    <el-table-column prop="full_name" align="center" label="姓名" />
                     <el-table-column prop="phone_number" align="center" label="手机号" />
                     <el-table-column prop="payment.qr_code" align="center" label="收款码">
                         <template #default="scope">

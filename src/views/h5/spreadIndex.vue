@@ -1,6 +1,6 @@
 <template>
     <div>
-        <van-nav-bar :title="title" left-arrow @click-left="onClickLeft">
+        <van-nav-bar :title="title" left-arrow @click-left="onClickLeft" >
 
         </van-nav-bar>
         <van-dropdown-menu>
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <div class="overflow-y-scroll" style="height: calc(100vh - 100px);" v-if="active == 1">
+        <!-- <div class="overflow-y-scroll" style="height: calc(100vh - 100px);" v-if="active == 1">
             <div class="mt-[15px] ml-[20px] text-[15px] font-bold">可提现金额</div>
             <div class="w-[80%] h-[80px] flex items-center justify-center text-[14px] text-[#E6A23C] font-bold">
                 <span class="text-[20px]">{{ personInfo.money }}</span>&nbsp;元
@@ -39,9 +39,9 @@
             <van-cell title="提现" value="每周五开放" is-link @click="clickCell" />
             <van-cell title="提现设置" is-link @click="jumpInfo('setting')" />
             <van-cell title="提现记录" is-link @click="jumpInfo" />
-            <van-cell title="密码修改" is-link @click="jumpInfo" />
+            <van-cell title="密码修改" is-link @click="jumpInfo('password')" />
 
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -55,14 +55,14 @@ const $router = useRouter();
 
 const option1 = [
     { text: '全部', value: 'all' },
-    { text: '待审核', value: 'completed' },
-    { text: '审核中', value: 'uncompleted' },
+    { text: '未完成', value: 'uncompleted' },
+    { text: '已完成', value: 'completed' },
 ];
 
 const active = ref(0);
 const title = ref('订单信息');
-const username = ref(localStorage.getItem('username'))
-const personInfo = ref({})
+const username = ref(localStorage.getItem('username'));
+const personInfo = ref({});
 
 
 onMounted(() => {
@@ -91,6 +91,11 @@ const jumpInfo = (type) => {
     if (type == `setting`) {
         $router.push({
             path: "/spreadWithUpload"
+        })
+    }
+    if (type == `password`) {
+        $router.push({
+            path: "/spreadPassword"
         })
     }
 

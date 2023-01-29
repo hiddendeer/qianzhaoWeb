@@ -18,6 +18,13 @@ export default class api {
 			data
 		})
 	}
+	static withdrawalsRecord(data) {
+		return request({
+			url: `${config.API_URL}/withdrawals`,
+			method: 'get',
+			data
+		})
+	}
 	static getInfo(data) {
 		return request({
 			url: `${config.API_URL}/promoters/getInfo`,
@@ -39,6 +46,13 @@ export default class api {
 		return request({
 			url: `/api/promoters/needCheck`,
 			method: 'get',
+			data
+		})
+	}
+	static updatePassword(data,id) {
+		return request({
+			url: `/api/promoters/`+id+`/updatePassword`,
+			method: 'post',
 			data
 		})
 	}

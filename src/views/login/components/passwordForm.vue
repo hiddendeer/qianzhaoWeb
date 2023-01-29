@@ -25,6 +25,9 @@
       <el-button type="primary" style="width: 100%" :loading="islogin" round @click="login">{{ $t("login.signIn") }}
       </el-button>
     </el-form-item>
+    <el-form-item>
+      <div @click="jumpR" class="w-full flex justify-center cursor-pointer text-[#409EFF]">推广人注册</div>
+    </el-form-item>
     <!-- <div class="login-reg">
       {{ $t("login.noAccount") }}
       <router-link to="/user_register">{{
@@ -75,6 +78,7 @@ export default {
     },
   },
   mounted() {
+    localStorage.clear();
   },
   methods: {
     async login() {
@@ -139,9 +143,14 @@ export default {
         });
       }
 
-      this.$message.success("Login Success 登录成功");
+      this.$message.success("欢迎登录");
       this.islogin = false;
     },
+    jumpR() {
+      this.$router.replace({
+          path: "/register",
+        });
+    }
   },
 };
 </script>
