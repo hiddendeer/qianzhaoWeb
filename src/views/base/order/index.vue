@@ -217,10 +217,8 @@ const getList = async () => {
 
 //查询
 const triggerSearch = () => {
-  data.a = 2
-  sessionStorage.setItem('a', data.a)
-  console.log(data);
-  // getList();
+
+  getList();
 };
 
 // 重置

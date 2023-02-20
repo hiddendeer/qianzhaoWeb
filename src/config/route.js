@@ -39,6 +39,27 @@ let routes = [
 
         ]
     },
+    // {
+    //     name: "pay",
+    //     path: "/pay",
+    //     meta: {
+    //         title: "充值管理",
+    //         icon: "el-icon-shopping-cart",
+    //         type: "menu"
+    //     },
+    //     children: [
+    //         {
+    //             path: "/pay/index",
+    //             name: "pay",
+    //             meta: {
+    //                 title: "充值管理",
+    //                 icon: "el-icon-shopping-cart",
+    //                 type: "menu"
+    //             },
+    //             component: "pay/index"
+    //         },
+    //     ]
+    // },
 
 ]
 

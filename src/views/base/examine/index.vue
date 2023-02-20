@@ -13,7 +13,7 @@
                     <el-table-column prop="name" align="center" label="账号名称" />
                     <el-table-column prop="full_name" align="center" label="姓名" />
                     <el-table-column prop="phone_number" align="center" label="手机号" />
-                    <el-table-column prop="payment.qr_code" align="center" label="收款码">
+                    <el-table-column prop="payment?.qr_code" align="center" label="收款码">
                         <template #default="scope">
                             <el-button type="primary" @click="viewImg(scope.row)" text>查看</el-button>
                         </template>
@@ -102,7 +102,7 @@ const getList = async () => {
 
 const viewImg = (row) => {
     imgObj.value.showImg = true;
-    imgObj.value.url = row.payment.qr_code;
+    imgObj.value.url = row.payment?.qr_code;
 }
 
 

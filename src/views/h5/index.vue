@@ -6,7 +6,7 @@
     <div style="height: calc(100vh - 100px); overflow-y: scroll" v-if="active == 0">
       <van-swipe class="my-swipe" indicator-color="white">
         <van-swipe-item @click="jumpPoster">
-          <img class="w-full h-[150px]" src="https://qztele-1251945399.cos.ap-nanjing.myqcloud.com/qztele/banner2.jpg" alt="" />
+          <img class="w-full h-[150px]" src="https://qztele-1251945399.cos.ap-nanjing.myqcloud.com/qztele/banner.jpg" alt="" />
         </van-swipe-item>
       </van-swipe>
 
@@ -34,14 +34,14 @@
                     item?.status
                   }}</van-tag></span>
                 </div>
-                <div style="
+                <!-- <div style="
                     padding-bottom: 10px;
                     display: flex;
                     justify-content: space-between;
                   ">
                   <span style="color: #969799">首充金额</span>
                   <span>{{ item?.first_money }}元</span>
-                </div>
+                </div> -->
                 <div style="display: flex; justify-content: space-between">
                   <div style="color: #969799">下单时间</div>
                   <div>{{ item?.created_at }}</div>
