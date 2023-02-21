@@ -76,7 +76,7 @@ const onClickLeft = () => {
 .qrClass {
     position: absolute;
     top: 48vh;
-    left: 9vh;
+    left: 20vh;
     z-index: 999;
 }
 </style>
