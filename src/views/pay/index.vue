@@ -32,18 +32,19 @@
                     <el-table-column prop="" label="序号" type="index" align="center" width="100">
                     </el-table-column>
                     <el-table-column prop="wx_serial_no" label="订单号" />
-                    <el-table-column prop="coupon_info.phone" label="手机号" />
-                    <el-table-column prop="coupon_info.discount" label="折扣" align="center">
+                    <el-table-column prop="phone" label="手机号" />
+                    <el-table-column prop="discount" label="折扣" align="center">
                         <template #default="scope">
                             <div v-if="scope.row?.coupon_info?.discount">
                                 {{ scope.row?.coupon_info?.discount }}折
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="coupon_info.discount" label="状态" align="center">
+                    <el-table-column prop="status" label="状态" align="center">
                         <template #default="scope">
                             <div v-if="scope.row.status==`success`"><el-tag type="success">充值成功</el-tag></div>
-                            <div v-if="scope.row.status==`doing`"><el-tag >等待处理</el-tag></div>
+                            <div v-if="scope.row.status==`pay_wait`"><el-tag >待支付</el-tag></div>
+                            <div v-if="scope.row.status==`pay_success`"><el-tag type="warning">支付成功</el-tag></div>
                             <div v-if="scope.row.status==`refund`"><el-tag type="danger">退款</el-tag></div>
                         </template>
                     </el-table-column>
@@ -52,13 +53,13 @@
                     <el-table-column prop="created_at" label="创建时间" align="center" />
                     <el-table-column label="操作" fixed="right" align="center" width="200">
                         <template #default="scope">
-                            <el-button-group v-if="['doing'].includes(scope.row.status)">
-                                <el-button  @click="changeAction(scope.row, 'success')" type="success" text size="small">
+                            <el-button-group v-if="['pay_success'].includes(scope.row.status)">
+                                 <el-button  @click="changeAction(scope.row, 'success')" type="success" text size="small">
                                     成功
                                 </el-button>
-                                <el-button @click="changeAction(scope.row, 'refund')" type="danger" text size="small">
+                                <!-- <el-button @click="changeAction(scope.row, 'refund')" type="danger" text size="small">
                                     退款
-                                </el-button>
+                                </el-button> -->
                             </el-button-group>
                         </template>
                     </el-table-column>
@@ -91,7 +92,7 @@ const imgView = ref({
     viewImg: false,
     url: "",
 });
-let searchForm = ref({ search: "", status: '' });
+let searchForm = ref({ search: "", status: 'pay_success' });
 const dataObj = reactive({
     tableData: [],
     selectTime: [],
@@ -107,12 +108,16 @@ const dataObj = reactive({
         //   code: 'all',
         // },
         {
-            label: '成功',
-            code: 'success'
+            label: '待支付',
+            code: 'pay_wait'
         },
         {
-            label: '退款',
-            code: 'refund'
+            label: '支付成功',
+            code: 'pay_success'
+        },
+        {
+            label: '充值成功',
+            code: 'success'
         },
     ]
 });

@@ -17,6 +17,13 @@ module.exports = defineConfig({
 			'Access-Control-Allow-Origin': '*',
 		  },
 		proxy: {
+			'/api': {
+				target: process.env.VUE_APP_API_BASEURL,
+				ws: true,
+				pathRewrite: {
+					'^/api': '/api'
+				}
+			},
 			"/getToken": {
 				target: "http://120.48.115.253:18080",
 				changeOrigin: true,
@@ -38,13 +45,7 @@ module.exports = defineConfig({
 					'^/orders': '/orders'
 				}
 			},
-			'/api': {
-				target: process.env.VUE_APP_API_BASEURL,
-				ws: true,
-				pathRewrite: {
-					'^/api': '/api'
-				}
-			}
+	
 
 		}
 	},
