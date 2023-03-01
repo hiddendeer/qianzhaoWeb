@@ -83,7 +83,10 @@ const openAdd = () => {
 
 const getList = async () => {
   const res = await api.getPromoters();
-  dataObj.tableData = res.data;
+  if (res.errorCode=='') {
+    dataObj.tableData = res.data;
+
+  }
 };
 
 const triggerUrl = async (row) => {

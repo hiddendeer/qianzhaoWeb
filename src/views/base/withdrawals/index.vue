@@ -31,7 +31,7 @@
                     <el-table-column label="操作" fixed="right" align="center" width="300">
                         <template #default="scope">
                             <el-button v-if="scope.row.status==`unpaid`" type="primary" text size="small" @click="open(scope.row)">转账</el-button>
-                            <el-button  type="primary" v-if="scope.row.status==`unpaid`" text size="small" @click="triggerReject(scope.row)">驳回</el-button>
+                            <el-button  type="danger" v-if="scope.row.status==`unpaid`" text size="small" @click="triggerReject(scope.row)">驳回</el-button>
                         </template>
                     </el-table-column>
                 </el-table>

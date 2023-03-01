@@ -71,7 +71,7 @@
         </div>
       </div>
       <van-cell title="提现" value="每周五开放" is-link @click="clickCell" />
-      <van-cell title="提现设置" is-link @click="jumpInfo('setting')" />
+      <van-cell title="提现设置" :value="withIng" is-link @click="jumpInfo('setting')" />
       <van-cell title="提现记录" is-link @click="jumpInfo('record')" />
       <van-cell title="密码修改" is-link @click="jumpInfo('password')" />
       <van-cell title="退出登录" is-link @click="jumpInfo('loginout')" />
@@ -93,6 +93,7 @@ import { ref, onMounted } from "vue";
 const $router = useRouter();
 
 const current = ref(0);
+const withIng = ref("")
 const items = [
   {
     background: "#09BE4F",
@@ -129,6 +130,10 @@ const getInfo = async () => {
   const res = await api.getInfo();
   if (res.errorCode == "") {
     personInfo.value = res.data;
+    if (personInfo.value.status =='tobe_reviewed') {
+    withIng.value = '资料审核中'
+
+    }
   }
   console.log(res);
 };

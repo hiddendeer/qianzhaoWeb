@@ -18,5 +18,13 @@ export default class api {
 	  })
 	}
 
+	static withDrawals(data,uuid) {
+		return request({
+		  url: `${config.API_URL}/withdrawals/`+uuid,
+		  method: 'patch',
+		  data
+		})
+	  }
+
 
 }

@@ -63,54 +63,82 @@ let routes = [
 
 ]
 
-if (localStorage.getItem('role') == 'distributor') {
-    routes.push(
-        {
-            name: "spread ",
-            path: "/spread ",
-            meta: {
-                title: "推广人",
-                icon: "el-icon-notebook",
-                type: "menu"
+if (['distributor','admin'].includes(localStorage.getItem('role'))) {
+    let spread = {
+        name: "spread ",
+        path: "/spread ",
+        meta: {
+            title: "推广人",
+            icon: "el-icon-notebook",
+            type: "menu"
+        },
+        children: [
+            {
+                path: "/base/spread",
+                name: "spread",
+                meta: {
+                    title: "推广管理",
+                    icon: "el-icon-share",
+                    type: "menu"
+                },
+                component: "base/spread/index"
             },
-            children: [
-                {
-                    path: "/base/spread",
-                    name: "spread",
-                    meta: {
-                        title: "推广管理",
-                        icon: "el-icon-share",
-                        type: "menu"
-                    },
-                    component: "base/spread/index"
-                },
-                {
-                    path: "/base/with",
-                    name: "with",
-                    meta: {
-                        title: "提现管理",
-                        icon: "el-icon-sugar",
-                        type: "menu"
-                    },
-                    component: "base/withdrawals/index"
-                },
-                {
-                    path: "/base/examine",
-                    name: "examine",
-                    meta: {
-                        title: "待审核管理",
-                        icon: "el-icon-DocumentCopy",
-                        type: "menu"
-                    },
-                    component: "base/examine/index"
-                },
-       
-            ]
-        }
-    );
+            // {
+            //     path: "/base/with",
+            //     name: "with",
+            //     meta: {
+            //         title: "提现管理",
+            //         icon: "el-icon-sugar",
+            //         type: "menu"
+            //     },
+            //     component: "base/withdrawals/index"
+            // },
+            // {
+            //     path: "/base/examine",
+            //     name: "examine",
+            //     meta: {
+            //         title: "待审核管理",
+            //         icon: "el-icon-DocumentCopy",
+            //         type: "menu"
+            //     },
+            //     component: "base/examine/index"
+            // },
+   
+        ]
+    }
 
+    if (['admin'].includes(localStorage.getItem('role'))) {
+        spread.children.push(
+               {
+                path: "/base/with",
+                name: "with",
+                meta: {
+                    title: "提现管理",
+                    icon: "el-icon-sugar",
+                    type: "menu"
+                },
+                component: "base/withdrawals/index"
+            }
+        )
+        spread.children.push(
+              {
+                path: "/base/examine",
+                name: "examine",
+                meta: {
+                    title: "待审核管理",
+                    icon: "el-icon-DocumentCopy",
+                    type: "menu"
+                },
+                component: "base/examine/index"
+            },
+        )
 
+    }
+
+    routes.push(spread);
 }
+
+
 
 routes.push(
     {
@@ -293,6 +321,44 @@ if (localStorage.getItem('role') == 'admin') {
     
     }
     )
+}
+
+// 财务角色
+if (['treasurer'].includes(localStorage.getItem('role'))) {
+    routes = [];
+    let spread = {
+        name: "spread ",
+        path: "/spread ",
+        meta: {
+            title: "推广人",
+            icon: "el-icon-notebook",
+            type: "menu"
+        },
+        children: [
+            {
+                path: "/base/with",
+                name: "with",
+                meta: {
+                    title: "提现管理",
+                    icon: "el-icon-sugar",
+                    type: "menu"
+                },
+                component: "base/withdrawals/index"
+            },
+            {
+                path: "/base/examine",
+                name: "examine",
+                meta: {
+                    title: "待审核管理",
+                    icon: "el-icon-DocumentCopy",
+                    type: "menu"
+                },
+                component: "base/examine/index"
+            },
+   
+        ]
+    }
+    routes.push(spread)
 }
 
 export default routes;

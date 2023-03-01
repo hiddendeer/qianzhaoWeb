@@ -30,17 +30,19 @@
 <script setup>
 import { state } from "../server/vuex.js";
 import api from '../server/api.js';
-import { showToast } from 'vant';
+import { showToast, showConfirmDialog } from 'vant';
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 
 const $router = useRouter();
 
+const isUpload = ref(false)
+
 const statusObj = {
     'normal': '正常',
     'disabled': '禁用',
     'expired': '授权到期',
-    'tobe_reviewed': '资料待审核',
+    'tobe_reviewed': '资料审核中',
     'reviewed_failed': '资料审核失败',
 }
 
@@ -63,6 +65,9 @@ onMounted(async () => {
         formData.value.phone_number = res.data.phone_number;
         formData.value.full_name = res.data.full_name;
         formData.value.imgList = [{ url: res.data?.payment?.qr_code }]
+        if (res.data?.payment?.qr_code != '') {
+            isUpload.value = true;
+        }
     }
 })
 
@@ -73,14 +78,36 @@ const onSubmit = async () => {
     }
     formdata.append('phone_number', formData.value.phone_number);
     formdata.append('full_name', formData.value.full_name);
-    const res = await api.updateInfo(formdata);
-    if (res.errorCode == '') {
-        state.index = 1;
-        showToast('提交成功');
-        $router.push({
-            path: "/spreadH5"
+
+    if (isUpload) {
+        showConfirmDialog({
+            title: '提示',
+            message:
+                '确认要修改提现收款码吗，修改后需要重新审核，可能影响您的提现进度。',
         })
+            .then(async () => {
+                const res = await api.updateInfo(formdata);
+                if (res.errorCode == '') {
+                    state.index = 1;
+                    showToast('提交成功');
+                    $router.push({
+                        path: "/spreadH5"
+                    })
+                }
+            })
+
+    } else {
+        const res = await api.updateInfo(formdata);
+        if (res.errorCode == '') {
+            state.index = 1;
+            showToast('提交成功');
+            $router.push({
+                path: "/spreadH5"
+            })
+        }
     }
+
+
 }
 
 

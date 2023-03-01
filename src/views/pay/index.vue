@@ -55,7 +55,7 @@
                         <template #default="scope">
                             <el-button-group v-if="['pay_success'].includes(scope.row.status)">
                                  <el-button  @click="changeAction(scope.row, 'success')" type="success" text size="small">
-                                    成功
+                                    确认充值
                                 </el-button>
                                 <!-- <el-button @click="changeAction(scope.row, 'refund')" type="danger" text size="small">
                                     退款

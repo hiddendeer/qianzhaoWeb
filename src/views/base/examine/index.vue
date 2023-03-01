@@ -33,6 +33,8 @@
                         <template #default="scope">
                             <el-button v-if="scope.row.status == `tobe_reviewed`" type="primary" text size="small"
                                 @click="open(scope.row)">审核</el-button>
+                            <!-- <el-button v-if="scope.row.status == `tobe_reviewed`" type="danger" text size="small"
+                                @click="triggerReject(scope.row)">驳回</el-button> -->
                         </template>
                     </el-table-column>
                 </el-table>
@@ -70,6 +72,29 @@ const dialogFormVisible = ref(false);
 onMounted(() => {
     getList();
 });
+
+const triggerReject = (row) => {
+    ElMessageBox.confirm(
+        '确定要驳回吗?',
+        '确认',
+        {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'warning',
+        }
+    )
+        .then(async () => {
+            const res = await api.checkInfo({approve: true}, row.uuid);
+            if (res.errorCode == '') {
+                ElMessage({
+                    type: 'success',
+                    message: '审核成功',
+                })
+                getList();
+            }
+
+        })
+}
 
 const open = (row) => {
     ElMessageBox.confirm(
