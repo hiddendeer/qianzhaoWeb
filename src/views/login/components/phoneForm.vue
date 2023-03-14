@@ -85,6 +85,7 @@ export default {
 				localStorage.removeItem('reload');
 			} else {
 				this.$message.error(user?.errorMessage);
+				this.islogin = false;
 				return;
 			}
 			if (user?.data?.user?.role == 'promoter') {
@@ -103,7 +104,7 @@ export default {
 			}
 			setTimeout(() => {
 				this.$router.go(0)
-			}, 600)
+			}, 1000)
 			this.$message.success("欢迎登录");
 			this.islogin = false;
 		}
