@@ -134,27 +134,32 @@ export default {
       // localStorage.setItem("MENU", JSON.stringify({content: routeParams}))
       // this.$TOOL.data.set("PERMISSIONS", menu.data.permissions);
       if (user?.data?.user?.role == 'promoter') {
-          this.$router.push({
+        this.$router.push({
           path: "/spreadH5",
         });
-      } else {
+      } else if (user?.data?.user?.role == 'treasurer') {
+        this.$router.push({
+          path: "/base/with",
+        });
+      }
+      else {
         this.$router.replace({
           path: "/base/plan",
         });
       }
-
+      setTimeout(() => {
+        this.$router.go(0)
+      }, 600)
       this.$message.success("欢迎登录");
       this.islogin = false;
     },
     jumpR() {
       this.$router.replace({
-          path: "/register",
-        });
+        path: "/register",
+      });
     }
   },
 };
 </script>
 
-<style>
-
-</style>
+<style></style>

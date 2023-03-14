@@ -34,20 +34,6 @@ let routes = [
                 },
                 component: "base/order/index"
             },
- 
-
-
-        ]
-    },
-    {
-        name: "pay",
-        path: "/pay",
-        meta: {
-            title: "充值管理",
-            icon: "el-icon-shopping-cart",
-            type: "menu"
-        },
-        children: [
             {
                 path: "/pay/index",
                 name: "pay",
@@ -58,8 +44,32 @@ let routes = [
                 },
                 component: "pay/index"
             },
+ 
+
+
         ]
     },
+    // {
+    //     name: "pay",
+    //     path: "/pay",
+    //     meta: {
+    //         title: "充值管理",
+    //         icon: "el-icon-shopping-cart",
+    //         type: "menu"
+    //     },
+    //     children: [
+    //         {
+    //             path: "/pay/index",
+    //             name: "pay",
+    //             meta: {
+    //                 title: "充值管理",
+    //                 icon: "el-icon-shopping-cart",
+    //                 type: "menu"
+    //             },
+    //             component: "pay/index"
+    //         },
+    //     ]
+    // },
 
 ]
 
@@ -125,7 +135,7 @@ if (['distributor','admin'].includes(localStorage.getItem('role'))) {
                 path: "/base/examine",
                 name: "examine",
                 meta: {
-                    title: "待审核管理",
+                    title: "资料审核管理",
                     icon: "el-icon-DocumentCopy",
                     type: "menu"
                 },
@@ -349,7 +359,7 @@ if (['treasurer'].includes(localStorage.getItem('role'))) {
                 path: "/base/examine",
                 name: "examine",
                 meta: {
-                    title: "待审核管理",
+                    title: "审核资料管理",
                     icon: "el-icon-DocumentCopy",
                     type: "menu"
                 },
@@ -360,5 +370,6 @@ if (['treasurer'].includes(localStorage.getItem('role'))) {
     }
     routes.push(spread)
 }
+console.log(routes,'routes');
 
 export default routes;

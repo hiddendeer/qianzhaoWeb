@@ -67,9 +67,9 @@
           <el-tab-pane :label="$t('login.accountLogin')" lazy>
             <password-form></password-form>
           </el-tab-pane>
-          <!-- <el-tab-pane :label="$t('login.mobileLogin')" lazy>
+          <el-tab-pane :label="$t('login.mobileLogin')" lazy>
 						<phone-form></phone-form>
-					</el-tab-pane> -->
+					</el-tab-pane>
         </el-tabs>
         <template v-if="$CONFIG.MY_SHOW_LOGIN_OAUTH">
           <el-divider>{{ $t("login.signInOther") }}</el-divider>

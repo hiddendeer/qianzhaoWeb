@@ -18,5 +18,19 @@ export default class api {
 			data
 		})
 	}
+	static sendCaptcha(data) {
+		return request({
+			url: `/api/sendCaptcha`,
+			method: 'post',
+			data
+		})
+	}
+	static getToken(data) {
+		return request({
+			url: `/api/getToken`,
+			method: 'post',
+			data
+		})
+	}
 	
 }

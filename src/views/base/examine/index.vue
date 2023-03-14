@@ -33,8 +33,8 @@
                         <template #default="scope">
                             <el-button v-if="scope.row.status == `tobe_reviewed`" type="primary" text size="small"
                                 @click="open(scope.row)">审核</el-button>
-                            <!-- <el-button v-if="scope.row.status == `tobe_reviewed`" type="danger" text size="small"
-                                @click="triggerReject(scope.row)">驳回</el-button> -->
+                            <el-button v-if="scope.row.status == `tobe_reviewed`" type="danger" text size="small"
+                                @click="triggerReject(scope.row)">驳回</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -84,11 +84,11 @@ const triggerReject = (row) => {
         }
     )
         .then(async () => {
-            const res = await api.checkInfo({approve: true}, row.uuid);
+            const res = await api.checkInfo({approve: false}, row.uuid);
             if (res.errorCode == '') {
                 ElMessage({
                     type: 'success',
-                    message: '审核成功',
+                    message: '驳回成功',
                 })
                 getList();
             }

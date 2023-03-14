@@ -125,6 +125,11 @@
 			</div>
 		</section>
 	</template>
+	
+	<!-- 独立布局 -->
+<template v-else-if="layout=='stand'">
+	<menuStand></menuStand>
+</template>
 
 	<!-- 默认布局 -->
 	<template v-else>
@@ -197,6 +202,7 @@
 	import userbar from './components/userbar.vue';
 	import setting from './components/setting.vue';
 	import iframeView from './components/iframeView.vue';
+	import menuStand from './components/menuStand.vue';
 
 	export default {
 		name: 'index',
@@ -207,7 +213,8 @@
 			NavMenu,
 			userbar,
 			setting,
-			iframeView
+			iframeView,
+			menuStand
 		},
 		data() {
 			return {

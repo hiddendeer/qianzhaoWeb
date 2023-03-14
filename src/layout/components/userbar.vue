@@ -45,7 +45,7 @@
 				</el-container>
 			</el-drawer>
 		</div> -->
-		<el-dropdown class="user panel-item" trigger="click" @command="handleUser">
+		<el-dropdown class="user panel-item !h-[50px]" trigger="click" @command="handleUser">
 			<div class="user-avatar">
 				<el-avatar :size="30">{{ userNameF }}</el-avatar>
 				<label>{{ userName }}</label>
@@ -53,7 +53,7 @@
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
-					<el-dropdown-item command="uc">帐号信息</el-dropdown-item>
+					<!-- <el-dropdown-item command="uc">帐号信息</el-dropdown-item> -->
 					<!-- <el-dropdown-item command="clearCache">清除缓存</el-dropdown-item> -->
 					<el-dropdown-item divided command="outLogin">退出登录</el-dropdown-item>
 				</el-dropdown-menu>

@@ -30,9 +30,9 @@ const DEFAULT_CONFIG = {
 	//请求是否开启缓存
 	REQUEST_CACHE: false,
 
-	//布局 默认：default | 通栏：header | 经典：menu | 功能坞：dock
+	//布局 默认：default | 通栏：header | 经典：menu | 功能坞：dock | 独立: stand
 	//dock将关闭标签和面包屑栏
-	LAYOUT: 'default',
+	LAYOUT: 'stand',
 
 	//菜单是否折叠
 	MENU_IS_COLLAPSE: false,

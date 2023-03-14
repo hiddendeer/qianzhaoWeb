@@ -30,8 +30,10 @@
                     <el-table-column prop="created_at" align="center" label="创建时间" />
                     <el-table-column label="操作" fixed="right" align="center" width="300">
                         <template #default="scope">
-                            <el-button v-if="scope.row.status==`unpaid`" type="primary" text size="small" @click="open(scope.row)">转账</el-button>
-                            <el-button  type="danger" v-if="scope.row.status==`unpaid`" text size="small" @click="triggerReject(scope.row)">驳回</el-button>
+                            <el-button v-if="scope.row.status == `unpaid`" type="primary" text size="small"
+                                @click="open(scope.row)">转账</el-button>
+                            <el-button type="danger" v-if="scope.row.status == `unpaid`" text size="small"
+                                @click="triggerReject(scope.row)">驳回</el-button>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -43,18 +45,18 @@
     </el-container>
     <el-dialog width="30%" center v-model="dialogFormVisible" title="确认">
         <div class="flex justify-center">
-        <el-form :model="form">
-            <!-- <el-form-item label="输入金额">
+            <el-form :model="form">
+                <!-- <el-form-item label="输入金额">
                 <el-input v-model="form.money" type="number" autocomplete="off" class="w-[100%]" />
             </el-form-item> -->
-            <div>姓名：{{currentObj?.owner_info?.full_name}}</div>
-            <div>金额：{{currentObj?.money}}元</div>
-            <div v-if="currentObj?.owner_info?.payment">
-                <img class="w-[300px] h-[300px]" :src="currentObj?.owner_info?.payment?.qr_code" alt="">
-            </div>
+                <div>姓名：{{ currentObj?.owner_info?.full_name }}</div>
+                <div>金额：{{ currentObj?.money }}元</div>
+                <div v-if="currentObj?.owner_info?.payment">
+                    <img class="w-[300px] h-[300px]" :src="currentObj?.owner_info?.payment?.qr_code" alt="">
+                </div>
 
-        </el-form>
-    </div>
+            </el-form>
+        </div>
         <template #footer>
             <span class="dialog-footer">
                 <el-button @click="dialogFormVisible = false">取消</el-button>
@@ -64,15 +66,14 @@
             </span>
         </template>
     </el-dialog>
-
 </template>
   
 <script setup>
 import api from "./server/api.js";
 import { onMounted, reactive, ref } from "vue";
-import { ElMessage ,ElMessageBox} from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 
-const form = ref({status: 'paid'});
+const form = ref({ status: 'paid' });
 const urlArr = ref([]);
 const dataObj = reactive({
     tableData: [],
@@ -96,29 +97,29 @@ const open = (row) => {
 const triggerReject = (row) => {
     currentId.value = row.uuid;
     currentObj.value = row;
-     ElMessageBox.confirm(
-    '您确认要驳回?',
-    'Warning',
-    {
-      confirmButtonText: '确认',
-      cancelButtonText: '取消',
-      type: 'warning',
-    }
-  )
-    .then(async() => {
+    ElMessageBox.confirm(
+        '您确认要驳回?',
+        'Warning',
+        {
+            confirmButtonText: '确认',
+            cancelButtonText: '取消',
+            type: 'warning',
+        }
+    )
+        .then(async () => {
 
-    const res = await api.withDrawals({status: 'reject'},currentId.value);
-    if (res.errorCode == '') {
-        ElMessage.success('驳回成功');
-        getList();
-    } else {
-        ElMessage.error(res.errorMessage);
-    }
-    })
+            const res = await api.withDrawals({ status: 'reject' }, currentId.value);
+            if (res.errorCode == '') {
+                ElMessage.success('驳回成功');
+                getList();
+            } else {
+                ElMessage.error(res.errorMessage);
+            }
+        })
 }
 
-const submit = async() => {
-    const res = await api.withDrawals(form.value,currentId.value);
+const submit = async () => {
+    const res = await api.withDrawals(form.value, currentId.value);
     if (res.errorCode == '') {
         ElMessage.success('提交成功');
         getList();
@@ -131,7 +132,9 @@ const submit = async() => {
 
 const getList = async () => {
     const res = await api.getWithdrawals();
-    dataObj.tableData = res.data;
+    if (res.errorCode == '') {
+        dataObj.tableData = res?.data;
+    }
 };
 
 
