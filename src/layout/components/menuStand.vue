@@ -191,7 +191,7 @@
   $minnerwidth: 216px;
   $ItemActiveColor: #e5e7eb;
   
-  @media (max-width: 2400px) {
+  @media (min-width: 1440px) {
     .aminui-wrapper {
       padding-right: $maxermargin;
     }
