@@ -5,7 +5,9 @@
         <el-col :span="6">
           <el-input v-model="searchForm.search" placeholder="选购号码、收货号码、姓名、身份证、联通订单ID" />
         </el-col>
-        <el-col :span="3">
+        <template v-if="!['treasurer'].includes(role)">
+        
+        <el-col :span="3" >
           <el-select v-model="searchForm.goods_id" placeholder="选择套餐" clearable @change="changeType">
             <el-option v-for="item in dataObj.typeOption" :key="item.id" :label="item.name" :value="item.goods_id" />
           </el-select>
@@ -15,6 +17,8 @@
             <el-option v-for="item in dataObj.proxyList" :key="item.uuid" :label="item.name" :value="item.uuid" />
           </el-select>
         </el-col>
+        </template>
+
         <!-- <el-col :span="6">
           <el-config-provider :locale="dataObj.locale">
             <el-date-picker v-model="dataObj.selectTime" type="daterange" range-separator="至" start-placeholder="下单时间"
@@ -25,7 +29,7 @@
           <el-button style="margin-left: 15px;" @click="triggerSearch" :icon="Search" type="primary"
             round>查询</el-button>
           <el-button :icon="Refresh" @click="triggerRefresh" round>重置</el-button>
-          <el-button @click="seniorSearch" round>高级筛选</el-button>
+          <el-button @click="seniorSearch" round v-if="!['treasurer'].includes(role)">高级筛选</el-button>
           <el-button :icon="Upload" @click="dcTrigger" round type="primary">导出</el-button>
         </el-col>
       </el-row>

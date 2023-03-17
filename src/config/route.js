@@ -346,6 +346,16 @@ if (['treasurer'].includes(localStorage.getItem('role'))) {
         },
         children: [
             {
+                path: "/base/orderConfig",
+                name: "orderConfig",
+                meta: {
+                    title: "订单管理",
+                    icon: "el-icon-document-copy",
+                    type: "menu"
+                },
+                component: "base/orderConfig/index"
+            },
+            {
                 path: "/base/with",
                 name: "with",
                 meta: {
