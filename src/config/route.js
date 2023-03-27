@@ -44,6 +44,26 @@ let routes = [
                 },
                 component: "pay/index"
             },
+            {
+                path: "/treasurerAccount/index",
+                name: "account",
+                meta: {
+                    title: "财务账号管理",
+                    icon: "el-icon-shopping-cart",
+                    type: "menu"
+                },
+                component: "base/treasurerAccount/index"
+            },
+            {
+                path: "/customer_care/index",
+                name: "customer_care",
+                meta: {
+                    title: "客服账号管理",
+                    icon: "el-icon-shopping-cart",
+                    type: "menu"
+                },
+                component: "base/customerManage/index"
+            },
  
 
 
