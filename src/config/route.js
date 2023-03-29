@@ -49,7 +49,7 @@ let routes = [
                 name: "account",
                 meta: {
                     title: "财务账号管理",
-                    icon: "el-icon-shopping-cart",
+                    icon: "el-icon-money",
                     type: "menu"
                 },
                 component: "base/treasurerAccount/index"
@@ -59,7 +59,7 @@ let routes = [
                 name: "customer_care",
                 meta: {
                     title: "客服账号管理",
-                    icon: "el-icon-shopping-cart",
+                    icon: "el-icon-phone",
                     type: "menu"
                 },
                 component: "base/customerManage/index"

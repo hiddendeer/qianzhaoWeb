@@ -108,6 +108,7 @@
     if (type == "edit") {
       refAddUser.value.title = "编辑";
       refAddUser.value.formData.username = jsonObj?.row?.username;
+      refAddUser.value.formData.id = jsonObj?.row?.id;
     }
   
     if (type == "add") {

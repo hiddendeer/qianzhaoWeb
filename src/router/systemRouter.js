@@ -44,6 +44,13 @@ const routes = [
 		meta: {
 			title: "重置密码"
 		}
+	},
+	{
+		path: "/ceshi",
+		component: () => import(/* webpackChunkName: "resetPassword" */ '@/views/user/ceshi'),
+		meta: {
+			title: "重置密码"
+		}
 	}
 ]
 

@@ -18,7 +18,7 @@
         <el-form-item label="账号名称" prop="username">
           <el-input v-model="formData.username" placeholder="输入账号" />
         </el-form-item>
-        <el-form-item label="密码" prop="password">
+        <el-form-item v-if="title!==`编辑`" label="密码" prop="password">
           <el-input v-model="formData.password" type="password" placeholder="输入密码" />
         </el-form-item>
 
@@ -103,7 +103,7 @@ const submit = async () => {
   formRef.value.validate(async (valid) => {
 
     if (valid) {
-      if (title.value == "修改套餐") {
+      if (title.value == "编辑") {
         const res = await api.edit(formData.value, formData.value?.id);
         if (res.errorCode == "") {
           ElMessage.success("修改成功");

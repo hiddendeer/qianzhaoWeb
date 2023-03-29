@@ -108,12 +108,13 @@
   const openAdd = (type, jsonObj = {}) => {
     if (type == "edit") {
       refAddUser.value.title = "编辑";
+      refAddUser.value.formData.id = jsonObj?.row?.id;
       refAddUser.value.formData.username = jsonObj?.row?.username;
       refAddUser.value.formData.first_name = jsonObj?.row?.first_name;
     }
   
     if (type == "add") {
-      refAddUser.value.title = "添加套餐";
+      refAddUser.value.title = "添加";
     }
     refAddUser.value.hasView = true;
   };
