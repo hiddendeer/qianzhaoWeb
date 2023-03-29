@@ -104,6 +104,7 @@ const submit = async () => {
 
     if (valid) {
       if (title.value == "编辑") {
+        delete formData.value?.password;
         const res = await api.edit(formData.value, formData.value?.id);
         if (res.errorCode == "") {
           ElMessage.success("修改成功");

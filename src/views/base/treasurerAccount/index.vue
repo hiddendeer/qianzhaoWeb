@@ -32,6 +32,10 @@
             <el-table-column label="操作" fixed="right" align="center" width="200">
               <template #default="scope">
                 <el-button-group>
+                  <el-button v-if="scope.row.is_active" @click="changeStatus(scope.row)" type="danger" text
+                  size="small">禁用</el-button>
+                <el-button v-if="!scope.row.is_active" @click="changeStatus(scope.row)" type="success" text
+                  size="small">启用</el-button>
                   <el-button  @click="openAdd('edit', scope)" type="warning" text
                     size="small">编辑</el-button>
                   <el-button  @click="delShop(scope.row)" type="danger" text
@@ -229,6 +233,18 @@
     data.page_size = e;
     getList();
   };
+  const changeStatus = async (row) => {
+  // if (row.is_active) {
+    const res = await api.edit({ is_active: !row.is_active }, row.id);
+    if (res?.errorCode == "") {
+      ElMessage({
+        type: "success",
+        message: "操作成功",
+      });
+      getList();
+    }
+  // }
+}
   </script>
   
   <style scoped>
