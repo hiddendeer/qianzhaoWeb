@@ -44,6 +44,21 @@ let routes = [
                 },
                 component: "pay/index"
             },
+
+
+
+
+        ]
+    },
+    {
+        name: "account",
+        path: "/account",
+        meta: {
+            title: "账号管理",
+            icon: "el-icon-shopping-cart",
+            type: "menu"
+        },
+        children: [
             {
                 path: "/treasurerAccount/index",
                 name: "account",
@@ -64,36 +79,12 @@ let routes = [
                 },
                 component: "base/customerManage/index"
             },
- 
-
-
         ]
     },
-    // {
-    //     name: "pay",
-    //     path: "/pay",
-    //     meta: {
-    //         title: "充值管理",
-    //         icon: "el-icon-shopping-cart",
-    //         type: "menu"
-    //     },
-    //     children: [
-    //         {
-    //             path: "/pay/index",
-    //             name: "pay",
-    //             meta: {
-    //                 title: "充值管理",
-    //                 icon: "el-icon-shopping-cart",
-    //                 type: "menu"
-    //             },
-    //             component: "pay/index"
-    //         },
-    //     ]
-    // },
 
 ]
 
-if (['distributor','admin'].includes(localStorage.getItem('role'))) {
+if (['distributor', 'admin'].includes(localStorage.getItem('role'))) {
     let spread = {
         name: "spread ",
         path: "/spread ",
@@ -133,13 +124,13 @@ if (['distributor','admin'].includes(localStorage.getItem('role'))) {
             //     },
             //     component: "base/examine/index"
             // },
-   
+
         ]
     }
 
     if (['admin'].includes(localStorage.getItem('role'))) {
         spread.children.push(
-               {
+            {
                 path: "/base/with",
                 name: "with",
                 meta: {
@@ -151,7 +142,7 @@ if (['distributor','admin'].includes(localStorage.getItem('role'))) {
             }
         )
         spread.children.push(
-              {
+            {
                 path: "/base/examine",
                 name: "examine",
                 meta: {
@@ -329,27 +320,27 @@ if (localStorage.getItem('role') == 'admin') {
     );
     routes.push(
         {
-        name: "extra",
-        path: "/extra",
-        meta: {
-            title: "扩展功能",
-            icon: "el-icon-cpu",
-            type: "menu"
-        },
-        children: [
-            {
-                path: "/extra/taOrder",
-                name: "taOrder",
-                meta: {
-                    title: "推啊订单",
-                    icon: "el-icon-document-copy",
-                    type: "menu"
-                },
-                component: "base/taManage/index"
-            }
-        ]
-    
-    }
+            name: "extra",
+            path: "/extra",
+            meta: {
+                title: "扩展功能",
+                icon: "el-icon-cpu",
+                type: "menu"
+            },
+            children: [
+                {
+                    path: "/extra/taOrder",
+                    name: "taOrder",
+                    meta: {
+                        title: "推啊订单",
+                        icon: "el-icon-document-copy",
+                        type: "menu"
+                    },
+                    component: "base/taManage/index"
+                }
+            ]
+
+        }
     )
 }
 
@@ -395,11 +386,48 @@ if (['treasurer'].includes(localStorage.getItem('role'))) {
                 },
                 component: "base/examine/index"
             },
-   
+
         ]
     }
     routes.push(spread)
 }
-console.log(routes,'routes');
+
+if (['customer_care'].includes(localStorage.getItem('role'))) {
+    routes = [];
+    let spread = {
+        name: "base",
+        path: "/base",
+        meta: {
+            title: "基础业务",
+            icon: "el-icon-notebook",
+            type: "menu"
+        },
+        children: [
+            {
+                path: "/base/order",
+                name: "order",
+                meta: {
+                    title: "订单管理",
+                    icon: "el-icon-document-copy",
+                    type: "menu"
+                },
+                component: "base/order/index"
+            },
+            {
+                path: "/pay/index",
+                name: "pay",
+                meta: {
+                    title: "充值管理",
+                    icon: "el-icon-shopping-cart",
+                    type: "menu"
+                },
+                component: "pay/index"
+            },
+        ]
+
+    }
+    routes.push(spread);
+}
+console.log(routes, 'routes');
 
 export default routes;

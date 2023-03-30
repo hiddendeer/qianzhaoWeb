@@ -15,6 +15,8 @@
         label-position="right"
         label-width="100px"
       >
+      <template v-if="title==`编辑` || title==`添加`">
+   
         <el-form-item label="昵称" prop="first_name">
           <el-input v-model="formData.first_name" placeholder="输入昵称" />
         </el-form-item>
@@ -24,6 +26,13 @@
         <el-form-item  v-if="title!==`编辑`" label="密码" prop="password">
           <el-input v-model="formData.password" type="password" placeholder="输入密码" />
         </el-form-item>
+      </template>
+
+      <template v-if="title==`修改密码`">
+          <el-form-item label="密码" prop="password">
+          <el-input v-model="formData.password" placeholder="输入密码" />
+        </el-form-item>
+      </template>
 
       </el-form>
       <div  style="display: flex;justify-content: end;">
@@ -70,9 +79,7 @@ const typeOption = ref([
 ]);
 
 let formData = ref({
-  first_name: "",
-  username: "",
-  password: "",
+
 });
 
 const rules = reactive({
@@ -124,7 +131,17 @@ const submit = async () => {
         } else {
           ElMessage.error(res.message);
         }
-      } else {
+      } else if(title.value == `修改密码`) {
+        delete formData.value?.username;
+        const res = await api.edit(formData.value, formData.value?.id);
+        if (res.errorCode == "") {
+          ElMessage.success("修改成功");
+          hasView.value = false;
+        } else {
+          ElMessage.error(res.message);
+        }
+      }
+      else {
         const res = await api.customerCaresAdd.post(formData.value);
         if (res.errorCode == "") {
           ElMessage.success("添加成功");
@@ -133,6 +150,7 @@ const submit = async () => {
           ElMessage.error(res.message);
         }
       }
+      closeDialog();
       emit("emitAddMenu");
     }
   });

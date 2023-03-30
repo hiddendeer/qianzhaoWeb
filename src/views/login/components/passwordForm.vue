@@ -142,6 +142,11 @@ export default {
           path: "/base/with",
         });
       }
+      else if (user?.data?.user?.role == 'customer_care') {
+        this.$router.push({
+          path: "/base/order",
+        });
+      }
       else {
         this.$router.replace({
           path: "/base/plan",

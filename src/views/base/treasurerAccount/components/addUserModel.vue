@@ -15,10 +15,10 @@
         label-position="right"
         label-width="100px"
       >
-        <el-form-item label="账号名称" prop="username">
+        <el-form-item  v-if="title==`编辑` || title==`添加`" label="账号名称" prop="username">
           <el-input v-model="formData.username" placeholder="输入账号" />
         </el-form-item>
-        <el-form-item v-if="title!==`编辑`" label="密码" prop="password">
+        <el-form-item v-if="title==`修改密码`" label="密码" prop="password">
           <el-input v-model="formData.password" type="password" placeholder="输入密码" />
         </el-form-item>
 
@@ -67,8 +67,7 @@ const typeOption = ref([
 ]);
 
 let formData = ref({
-  username: "",
-  password: "",
+
 });
 
 const rules = reactive({
@@ -112,7 +111,17 @@ const submit = async () => {
         } else {
           ElMessage.error(res.message);
         }
-      } else {
+      } else if(title.value == `修改密码`) {
+        delete formData.value?.username;
+        const res = await api.edit(formData.value, formData.value?.id);
+        if (res.errorCode == "") {
+          ElMessage.success("修改成功");
+          hasView.value = false;
+        } else {
+          ElMessage.error(res.message);
+        }
+      }
+       else {
         const res = await api.treasurerAdd.post(formData.value);
         if (res.errorCode == "") {
           ElMessage.success("添加成功");
@@ -121,6 +130,7 @@ const submit = async () => {
           ElMessage.error(res.message);
         }
       }
+      closeDialog();
       emit("emitAddMenu");
     }
   });

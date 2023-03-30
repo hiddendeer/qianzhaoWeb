@@ -28,9 +28,16 @@
           </el-table-column>
           <el-table-column prop="first_name" label="昵称" align="center" />
           <el-table-column prop="username" label="账号名称" align="center" />
+          <el-table-column prop="date_joined" label="状态" align="center">
+              <template #default="scope">
+                <el-tag  v-if="scope.row.is_active" type="success">激活</el-tag>
+                <el-tag v-else type="danger">禁用</el-tag>
+              </template>
+
+            </el-table-column>
           <el-table-column prop="date_joined" label="创建时间" align="center" />
 
-          <el-table-column label="操作" fixed="right" align="center" width="200">
+          <el-table-column label="操作" fixed="right" align="center" width="260">
             <template #default="scope">
               <el-button-group>
                 <el-button v-if="scope.row.is_active" @click="changeStatus(scope.row)" type="danger" text
@@ -38,6 +45,7 @@
                 <el-button v-if="!scope.row.is_active" @click="changeStatus(scope.row)" type="success" text
                   size="small">启用</el-button>
                 <el-button @click="openAdd('edit', scope)" type="warning" text size="small">编辑</el-button>
+                <el-button @click="openAdd('password', scope)" type="warning" text size="small">修改密码</el-button>
                 <el-button @click="delShop(scope.row)" type="danger" text size="small">删除</el-button>
 
               </el-button-group>
@@ -114,6 +122,10 @@ const openAdd = (type, jsonObj = {}) => {
     refAddUser.value.formData.id = jsonObj?.row?.id;
     refAddUser.value.formData.username = jsonObj?.row?.username;
     refAddUser.value.formData.first_name = jsonObj?.row?.first_name;
+  }
+  if (type == "password") {
+    refAddUser.value.title = "修改密码";
+    refAddUser.value.formData.id = jsonObj?.row?.id;
   }
 
   if (type == "add") {
