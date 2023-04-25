@@ -6,7 +6,7 @@
     <div style="height: calc(100vh - 100px); overflow-y: scroll" v-if="active == 0">
       <van-swipe class="my-swipe" indicator-color="white">
         <van-swipe-item @click="jumpPoster">
-          <img class="w-full h-[150px]" src="https://qztele-1251945399.cos.ap-nanjing.myqcloud.com/qztele/banner.jpg" alt="" />
+          <img class="w-full h-[150px]" src="https://qztele-1251945399.cos.ap-nanjing.myqcloud.com/qztele/banner29%E5%85%83%E8%B7%B3%E8%BD%AC%E5%9B%BE.jpg" alt="" />
         </van-swipe-item>
       </van-swipe>
 
