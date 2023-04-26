@@ -32,6 +32,13 @@ export default class api {
 			data
 		})
 	}
+	static getSalesInfo(data) {
+		return request({
+			url: `${config.API_URL}/salesman/getInfo`,
+			method: 'get',
+			data
+		})
+	}
 	static updateInfo(data) {
 		return request({
 			url: `/api/promoters/updateInfo`,
@@ -52,6 +59,13 @@ export default class api {
 	static updatePassword(data,id) {
 		return request({
 			url: `/api/promoters/`+id+`/updatePassword`,
+			method: 'post',
+			data
+		})
+	}
+	static updateSalesPassword(data,id) {
+		return request({
+			url: `/api/salesman/`+id+`/updatePassword`,
 			method: 'post',
 			data
 		})

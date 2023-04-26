@@ -37,7 +37,7 @@
           <el-table-column prop="created_at" label="创建时间" align="center" />
         </el-table>
       </div>
-      <div class="table-page">
+      <div class="table-page !justify-end">
         <el-pagination background :small="true" layout="total, prev, pager, next" :total="dataObj.totalRows"
           :page-sizes="[10, 20, 30]" v-model:currentPage="dataObj.currentPage" :default-page-size="15"
           @current-change="paginationChange"></el-pagination>

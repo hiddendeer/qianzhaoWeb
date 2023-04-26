@@ -50,44 +50,44 @@ let routes = [
 
         ]
     },
-    {
-        name: "account",
-        path: "/account",
-        meta: {
-            title: "账号管理",
-            icon: "el-icon-shopping-cart",
-            type: "menu"
-        },
-        children: [
-            {
-                path: "/treasurerAccount/index",
-                name: "account",
-                meta: {
-                    title: "财务账号管理",
-                    icon: "el-icon-money",
-                    type: "menu"
-                },
-                component: "base/treasurerAccount/index"
-            },
-            {
-                path: "/customer_care/index",
-                name: "customer_care",
-                meta: {
-                    title: "客服账号管理",
-                    icon: "el-icon-phone",
-                    type: "menu"
-                },
-                component: "base/customerManage/index"
-            },
-        ]
-    },
+    // {
+    //     name: "account",
+    //     path: "/account",
+    //     meta: {
+    //         title: "账号管理",
+    //         icon: "el-icon-shopping-cart",
+    //         type: "menu"
+    //     },
+    //     children: [
+    //         {
+    //             path: "/treasurerAccount/index",
+    //             name: "account",
+    //             meta: {
+    //                 title: "财务账号管理",
+    //                 icon: "el-icon-money",
+    //                 type: "menu"
+    //             },
+    //             component: "base/treasurerAccount/index"
+    //         },
+    //         {
+    //             path: "/customer_care/index",
+    //             name: "customer_care",
+    //             meta: {
+    //                 title: "客服账号管理",
+    //                 icon: "el-icon-phone",
+    //                 type: "menu"
+    //             },
+    //             component: "base/customerManage/index"
+    //         },
+    //     ]
+    // },
 
 ]
 
 if (['distributor', 'admin'].includes(localStorage.getItem('role'))) {
     let spread = {
-        name: "spread ",
-        path: "/spread ",
+        name: "spread",
+        path: "/spread",
         meta: {
             title: "推广人",
             icon: "el-icon-notebook",
@@ -104,27 +104,16 @@ if (['distributor', 'admin'].includes(localStorage.getItem('role'))) {
                 },
                 component: "base/spread/index"
             },
-            // {
-            //     path: "/base/with",
-            //     name: "with",
-            //     meta: {
-            //         title: "提现管理",
-            //         icon: "el-icon-sugar",
-            //         type: "menu"
-            //     },
-            //     component: "base/withdrawals/index"
-            // },
-            // {
-            //     path: "/base/examine",
-            //     name: "examine",
-            //     meta: {
-            //         title: "待审核管理",
-            //         icon: "el-icon-DocumentCopy",
-            //         type: "menu"
-            //     },
-            //     component: "base/examine/index"
-            // },
-
+            {
+                path: "/base/sales",
+                name: "sales",
+                meta: {
+                    title: "销售管理",
+                    icon: "el-icon-document-checked",
+                    type: "menu"
+                },
+                component: "base/salesman/index"
+            },
         ]
     }
 
@@ -154,12 +143,44 @@ if (['distributor', 'admin'].includes(localStorage.getItem('role'))) {
             },
         )
 
+        let accountObj = {
+            name: "account",
+            path: "/account",
+            meta: {
+                title: "账号管理",
+                icon: "el-icon-shopping-cart",
+                type: "menu"
+            },
+            children: [
+                {
+                    path: "/treasurerAccount/index",
+                    name: "account",
+                    meta: {
+                        title: "财务账号管理",
+                        icon: "el-icon-money",
+                        type: "menu"
+                    },
+                    component: "base/treasurerAccount/index"
+                },
+                {
+                    path: "/customer_care/index",
+                    name: "customer_care",
+                    meta: {
+                        title: "客服账号管理",
+                        icon: "el-icon-phone",
+                        type: "menu"
+                    },
+                    component: "base/customerManage/index"
+                },
+            ]
+        };
+    routes.push(accountObj);
+
+
     }
 
     routes.push(spread);
 }
-
-
 
 routes.push(
     {

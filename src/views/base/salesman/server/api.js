@@ -4,28 +4,28 @@ import config from "@/config"
 export default class api {
 	static addPromoters(data) {
 	  return request({
-		url: `${config.API_URL}/promoters`,
+		url: `/api/salesman`,
 		method: 'post',
 		data
 	  })
 	}
 	static patchPromoters(uuid,data) {
 		return request({
-			url: `${config.API_URL}/promoters/`+uuid,
+			url: `/api/salesman/`+uuid,
 			method: 'patch',
 			data
 		})
 	}
 	static getPromoters(params) {
 	  return request({
-		url: `${config.API_URL}/promoters`,
+		url: `/api/salesman`,
 		method: 'get',
 		params
 	  })
 	}
 	static deletePromoters(data) {
 	  return request({
-		url: `${config.API_URL}/promoters/`+data.uuid,
+		url: `/api/salesman/`+data.uuid,
 		method: 'delete',
 	  })
 	}

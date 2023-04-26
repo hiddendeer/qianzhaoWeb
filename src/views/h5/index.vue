@@ -57,8 +57,8 @@
     </div>
     <div class="overflow-y-scroll" style="height: calc(100vh - 200px)" v-if="active == 1">
       <div class="personBg">
-        <div class="pt-[15px] ml-[20px] text-[15px] font-bold">可提现金额</div>
-        <div class="
+        <div v-if="!['salesman'].includes(roles)" class="pt-[15px] ml-[20px] text-[15px] font-bold">可提现金额</div>
+        <div  class="
           w-[100%]
           h-[80px]
           flex
@@ -67,12 +67,12 @@
           text-[14px] text-[#E6A23C]
           font-bold
         ">
-          <span class="text-[30px]">{{ personInfo.money }}</span>&nbsp;元
+          <span v-if="!['salesman'].includes(roles)" class="text-[30px]">{{ personInfo.money }}&nbsp;元</span>
         </div>
       </div>
-      <van-cell title="提现" value="每周五开放" is-link @click="clickCell" />
-      <van-cell title="提现设置" :value="withIng" is-link @click="jumpInfo('setting')" />
-      <van-cell title="提现记录" is-link @click="jumpInfo('record')" />
+      <van-cell v-if="!['salesman'].includes(roles)" title="提现" value="每周五开放" is-link @click="clickCell" />
+      <van-cell v-if="!['salesman'].includes(roles)" title="提现设置" :value="withIng" is-link @click="jumpInfo('setting')" />
+      <van-cell v-if="!['salesman'].includes(roles)" title="提现记录" is-link @click="jumpInfo('record')" />
       <van-cell title="密码修改" is-link @click="jumpInfo('password')" />
       <van-cell title="退出登录" is-link @click="jumpInfo('loginout')" />
     </div>
@@ -91,6 +91,8 @@ import { useRouter } from "vue-router";
 import { ref, onMounted } from "vue";
 
 const $router = useRouter();
+
+const roles = ref(localStorage.getItem("role"));
 
 const current = ref(0);
 const withIng = ref("")

@@ -131,7 +131,7 @@
           </el-table-column>
         </el-table>
       </div>
-      <div class="scTable-page">
+      <div class="scTable-page !justify-end">
         <el-pagination
           background
           :small="true"

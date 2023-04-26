@@ -2,7 +2,7 @@
   <el-container>
     <el-header>
       <div></div>
-      <el-button @click="openAdd('add')" type="success" icon="el-icon-plus" text>添加推广人</el-button>
+      <el-button @click="openAdd('add')" type="success" icon="el-icon-plus" text>添加销售</el-button>
     </el-header>
     <el-main class="nopadding">
       <div class="scTable-table">
@@ -11,7 +11,7 @@
           v-loading="dataObj.loading">
           <el-table-column prop="" label="序号" type="index" align="center" width="100">
           </el-table-column>
-          <el-table-column prop="name" align="center" label="推广人名称" />
+          <el-table-column prop="name" align="center" label="销售名称" />
           <el-table-column prop="login_name" align="center" label="登录账号" />
           <el-table-column prop="login_password" align="center" label="登录密码" />
           <el-table-column prop="phone_number" align="center" label="手机号" />
@@ -27,7 +27,7 @@
 
               <el-popover placement="left" :width="400" trigger="click">
                 <template #reference>
-                  <el-button type="primary" text size="small" @click="triggerUrl(scope.row)">生成推广链接</el-button>
+                  <el-button type="primary" text size="small" @click="triggerUrl(scope.row)">生成销售链接</el-button>
                 </template>
                 <template v-for="item in urlArr">
                   <div>
@@ -62,12 +62,13 @@ const dataObj = reactive({
   total: 0
 });
 
+const refSpread = ref(null);
+
+
 const searchForm = ref({
   page: 1,
   page_size: 20,
 })
-
-const refSpread = ref(null);
 
 onMounted(() => {
   getList();

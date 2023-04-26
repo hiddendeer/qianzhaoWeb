@@ -133,7 +133,7 @@ export default {
       // this.$TOOL.data.set("MENU", routeParams);
       // localStorage.setItem("MENU", JSON.stringify({content: routeParams}))
       // this.$TOOL.data.set("PERMISSIONS", menu.data.permissions);
-      if (user?.data?.user?.role == 'promoter') {
+      if (['promoter','salesman'].includes(user?.data?.user?.role)) {
         this.$router.push({
           path: "/spreadH5",
         });

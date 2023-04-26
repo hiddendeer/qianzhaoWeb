@@ -65,7 +65,7 @@
                     </el-table-column>
                 </el-table>
             </div>
-            <div class="scTable-page">
+            <div class="scTable-page !justify-end">
                 <el-pagination background :small="true" layout="total, sizes, prev, pager, next" :total="dataObj.totalRows"
                     :page-sizes="[10, 20, 30]" v-model:currentPage="currentPage" :default-page-size="20"
                     @current-change="paginationChange" @size-change="handleSizeChange"></el-pagination>

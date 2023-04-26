@@ -29,14 +29,28 @@ const personInfo = ref({})
 const text = ref('');
 const viewUrl = ref('');
 const loading = ref(false);
+const roles = ref(localStorage.getItem("role"))
 
 onMounted(() => {
-    getInfo();
+    if (roles.value == `salesman`) {
+        getSalesInfo();
+    }else {
+        getInfo();
+    }
 });
 
 const getInfo = async () => {
     loading.value = true;
     const res = await api.getInfo();
+    if (res.errorCode == '') {
+        text.value = 'http://' + res.data.domains[0] + '/h5/#/?pid=' + res.data.uuid;
+        personInfo.value = res.data;
+        trigger()
+    }
+}
+const getSalesInfo = async () => {
+    loading.value = true;
+    const res = await api.getSalesInfo();
     if (res.errorCode == '') {
         text.value = 'http://' + res.data.domains[0] + '/h5/#/?pid=' + res.data.uuid;
         personInfo.value = res.data;
