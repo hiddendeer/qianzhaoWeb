@@ -70,8 +70,8 @@
             placeholder="忘记密码时用"
           />
         </el-form-item>
-        <el-form-item label="选择触点" >
-            <el-select
+        <el-form-item label="选择触点">
+          <el-select
             v-model="formData.touch_point_id"
             placeholder="选择状态"
             style="width: 100%"
@@ -86,7 +86,7 @@
         </el-form-item>
       </el-form>
       <div style="display: flex; justify-content: end">
-        <el-button @click="hasView = false" type="danger" text>取消</el-button>
+        <el-button @click="closeDialog" type="danger" text>取消</el-button>
         <el-button @click="submit" type="success" text>提交</el-button>
       </div>
     </el-dialog>
@@ -112,11 +112,11 @@ const refUpload = ref(null);
 const limit = ref(1);
 const treeList = ref([]);
 const bindList = ref([]);
-const comArray = ref([
-  {
-    url: "",
-  },
-]);
+// const comArray = ref([
+//   {
+//     url: "",
+//   },
+// ]);
 const imgView = reactive({
   view: {
     viewImg: false,
@@ -177,14 +177,16 @@ const rules = reactive({
   ],
 });
 
-onMounted(async () => {getbindList()});
+onMounted(async () => {
+  getbindList();
+});
 
-const getbindList = async() => {
-  const res = await api.getTouchPoints()
-  if (res.errorCode == '') {
-    bindList.value = res.data
+const getbindList = async () => {
+  const res = await api.getTouchPoints();
+  if (res.errorCode == "") {
+    bindList.value = res.data;
   }
-}
+};
 
 const handleSucess = (e) => {
   console.log(e);
@@ -195,7 +197,7 @@ const handleBefore = (e) => {
 
 const submit = async () => {
   formRef.value.validate(async (valid) => {
-    if (formData.value.comArray[0].url == "") {
+    if (!formData.value.comArray || formData.value.comArray[0].url == "") {
       ElMessage.error("代理商域名不能为空");
       return;
     }
@@ -206,13 +208,16 @@ const submit = async () => {
     if (valid) {
       if (title.value == "修改代理商") {
       } else {
-        delete formData.value.comArray;
+        // delete formData.value.comArray;
         const res = await api.addProxy(formData.value);
         if (res.errorCode == "") {
           ElMessage({
             type: "success",
             message: "添加成功",
           });
+          closeDialog();
+
+          hasView.value = false;
         } else {
           ElMessage({
             type: "danger",
@@ -220,7 +225,6 @@ const submit = async () => {
           });
         }
       }
-      hasView.value = false;
       emit("emitAddMenu");
     }
   });
@@ -252,18 +256,24 @@ const delDomain = (index) => {
 const closeDialog = () => {
   formData.value = {
     name: "",
-    goods_id: "",
-    price: "0",
-    des_content: "",
-    status: "outline",
-    des_picture: "",
-    type: "",
+    is_root: "no",
+    login_name: "",
+    login_password: "",
+    phone_number: "",
+    domains: [],
+    comArray: [
+      {
+        url: "",
+      },
+    ],
   };
   fileList.value = [];
   hideUpload.value = false;
+  hasView.value = false;
 };
 
 const addUrl = () => {
+  console.log(formData.value);
   formData.value.comArray.push({
     url: "",
   });
