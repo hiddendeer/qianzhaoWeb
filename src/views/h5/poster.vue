@@ -89,8 +89,8 @@ const onClickLeft = () => {
 
 .qrClass {
     position: absolute;
-    top: 48vh;
-    left: 20vh;
+    bottom: 20vh;
+    right: 6vh;
     z-index: 999;
 }
 </style>

@@ -17,7 +17,7 @@
 	export default {
 		props: {
 			text: { type: String, required: true, default: "" },
-			size: { type: Number, default: 100 },
+			size: { type: Number, default: 120 },
 			logo: { type: String, default: "" },
 			logoSize: { type: Number, default: 30 },
 			logoPadding: { type: Number, default: 5 },
