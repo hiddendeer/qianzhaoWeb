@@ -8,7 +8,7 @@
 		</el-form-item>
 		<el-form-item prop="captcha" style="margin-bottom: 35px;">
 			<div class="login-msg-yzm">
-				<el-input v-model="form.captcha" prefix-icon="el-icon-unlock" clearable
+				<el-input v-model="form.captcha" prefix-icon="el-icon-unlock" clearable maxlength="6"
 					:placeholder="$t('login.smsPlaceholder')"></el-input>
 				<el-button @click="getYzm" :disabled="disabled">{{ this.$t('login.smsGet') }}<span v-if="disabled">
 						({{ time }})</span></el-button>
