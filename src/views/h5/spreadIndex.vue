@@ -3,6 +3,11 @@
         <van-nav-bar :title="title" left-arrow @click-left="onClickLeft" >
 
         </van-nav-bar>
+        <van-search v-model="searchObj.search" @search="onSearch" @clear="onCancel" show-action placeholder="请输入搜索关键词" >
+            <template #action>
+                <div @click="onSearch">搜索</div>
+              </template>
+        </van-search>
         <van-dropdown-menu>
             <van-dropdown-item v-model="searchObj.has_completed" :options="option1" @change="dropChange" />
         </van-dropdown-menu>
@@ -11,8 +16,12 @@
                 <div class="card2">
                     <div class="card3">
                         <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
-                            <span style="color: #969799">客户姓名</span>
-                            <span class="title">{{ item.post_name }}</span>
+                            <span style="color: #969799">客户信息</span>
+                            <span class="title">{{ item.post_name }} /  {{ item?.post_number }}</span>
+                        </div>
+                        <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
+                            <span style="color: #969799">订购号码</span>
+                            <span><van-tag type="warning" round>{{ item?.number }}</van-tag></span>
                         </div>
                         <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
                             <span style="color: #969799">订单状态</span>
@@ -20,7 +29,7 @@
                         </div>
                         <div style="padding-bottom:10px;display: flex;justify-content: space-between;">
                             <span style="color: #969799">首充金额</span>
-                            <span>{{ item.first_money }}元</span>
+                            <span>{{ item.first_money || 0 }}元</span>
                         </div>
                         <div style="display: flex;justify-content: space-between;">
                             <div style="color: #969799">下单时间</div>
@@ -144,6 +153,15 @@ const getOrder = async () => {
 
 const dropChange = (e) => {
     searchObj.value.has_completed = e;
+    getOrder();
+}
+
+const onSearch = (e) => {
+    console.log(e);
+    getOrder();
+}
+const onCancel = () => {
+    searchObj.value.search = "";
     getOrder();
 }
 

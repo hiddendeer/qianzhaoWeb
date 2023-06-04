@@ -21,8 +21,16 @@
                     display: flex;
                     justify-content: space-between;
                   ">
-                  <span style="color: #969799">客户姓名</span>
-                  <span class="title">{{ item?.post_name }}</span>
+                  <span style="color: #969799">客户信息</span>
+                  <span class="title">{{ item?.post_name }} / {{ item?.post_number }}</span>
+                </div>
+                <div style="
+                    padding-bottom: 10px;
+                    display: flex;
+                    justify-content: space-between;
+                  ">
+                  <span style="color: #969799">订购号码</span>
+                  <span class="title">{{ item?.number }}</span>
                 </div>
                 <div style="
                     padding-bottom: 5px;
@@ -34,14 +42,14 @@
                     item?.status
                   }}</van-tag></span>
                 </div>
-                <!-- <div style="
+                <div style="
                     padding-bottom: 10px;
                     display: flex;
                     justify-content: space-between;
                   ">
                   <span style="color: #969799">首充金额</span>
-                  <span>{{ item?.first_money }}元</span>
-                </div> -->
+                  <span>{{ item?.first_money || 0 }}元</span>
+                </div>
                 <div style="display: flex; justify-content: space-between">
                   <div style="color: #969799">下单时间</div>
                   <div>{{ item?.created_at }}</div>
