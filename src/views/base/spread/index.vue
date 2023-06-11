@@ -15,6 +15,7 @@
           <el-table-column prop="login_name" align="center" label="登录账号" />
           <el-table-column prop="login_password" align="center" label="登录密码" />
           <el-table-column prop="phone_number" align="center" label="手机号" />
+          <el-table-column prop="commission" align="center" label="分成金额（元）" />
           <el-table-column label="操作" fixed="right" align="center" width="300">
             <template #default="scope">
               <el-button type="warning" text size="small" @click="edit(scope.row)">编辑</el-button>

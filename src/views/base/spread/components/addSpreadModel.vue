@@ -29,6 +29,9 @@
         <el-form-item label="手机号" prop="phone_number">
           <el-input v-model="formData.phone_number" placeholder="输入手机号" />
         </el-form-item>
+        <el-form-item label="分成金额" prop="commission">
+          <el-input-number v-model="formData.commission" :min="0" :max="70"  />
+        </el-form-item>
       </el-form>
       <div style="display: flex; justify-content: end">
         <el-button @click="hasView = false" type="danger" text>取消</el-button>
@@ -52,6 +55,7 @@ const formData = ref({
     login_name: '',
     login_password: '',
     phone_number: '',
+    commission: 0,
 });
 
 const rules = reactive({
@@ -83,6 +87,14 @@ const rules = reactive({
     {
       required: true,
       type: "string",
+      message: "请输入",
+      trigger: "blur",
+    },
+  ],
+  commission: [
+    {
+      required: true,
+      type: "number",
       message: "请输入",
       trigger: "blur",
     },
