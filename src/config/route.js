@@ -84,6 +84,22 @@ let routes = [
 
 ]
 
+if (['distributor','admin'].includes(localStorage.getItem('role'))) {
+    routes[0].children.push(
+        {
+            path: "/base/collect",
+            name: "collect",
+            meta: {
+                title: "宽带订单",
+                icon: "el-icon-document-checked",
+                type: "menu"
+            },
+            component: "base/collect/index"
+        }
+    )
+}
+
+
 if (['distributor', 'admin'].includes(localStorage.getItem('role'))) {
     let spread = {
         name: "spread",
@@ -114,6 +130,7 @@ if (['distributor', 'admin'].includes(localStorage.getItem('role'))) {
                 },
                 component: "base/salesman/index"
             },
+
         ]
     }
 
