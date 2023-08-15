@@ -461,6 +461,16 @@ if (['customer_care'].includes(localStorage.getItem('role'))) {
                 },
                 component: "pay/index"
             },
+            {
+                path: "/base/collect",
+                name: "collect",
+                meta: {
+                    title: "宽带订单",
+                    icon: "el-icon-document-checked",
+                    type: "menu"
+                },
+                component: "base/collect/index"
+            }
         ]
 
     }
