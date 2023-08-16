@@ -15,4 +15,10 @@ export default class api {
 			data
 		})
 	}
+	static deletePic(id) {
+		return request({
+			url: `/api/broadband/`+id+`/deletePic`,
+			method: 'DELETE',
+		})
+	}
 }

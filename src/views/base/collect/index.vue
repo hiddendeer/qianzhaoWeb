@@ -34,6 +34,11 @@
                     <el-table-column prop="full_name" label="姓名" align="center" />
                     <el-table-column prop="phone" label="手机号" align="center" />
                     <el-table-column prop="cert_no" label="身份证" align="center" />
+                    <el-table-column  label="图片信息" align="center" >
+                        <template #default="scope">
+                            <el-button v-if="scope.row.cert_pic1" type="primary" text @click="openView(scope.row)">查看</el-button>
+                        </template>
+                        </el-table-column>
                     <el-table-column prop="created_at" label="创建时间" align="center" />
                
            
@@ -58,10 +63,12 @@
     <el-dialog v-model="imgView.viewImg">
         <img style="width: 100%" :src="imgView.url" />
     </el-dialog>
+    <preview ref="previewRef" v-model:showPreviewDialog="showPreviewDialog" :list="imgList" :id="imgId" @emitGetList="emitGetList"></preview>
 </template>
   
 <script setup>
 import api from "./server/api.js";
+import preview from './components/vr-preview/preview.vue';
 import { ElMessage, ElMessageBox } from "element-plus";
 import { Search, Refresh } from "@element-plus/icons-vue";
 import zhCn from "element-plus/lib/locale/lang/zh-cn";
@@ -71,6 +78,10 @@ import { ref, reactive, onMounted } from "vue";
 const role = ref(localStorage.role);
 const refAddUser = ref(null);
 const currentPage = ref(1);
+const showPreviewDialog = ref(false);
+const imgList = ref([]);
+const imgId = ref("");
+
 const imgView = ref({
     viewImg: false,
     url: "",
@@ -218,6 +229,27 @@ const triggerSearch = () => {
     getList();
 };
 
+const openView = (row) => {
+    console.log(row);
+    imgList.value = [
+        {
+            fileName: '身份证正面照',
+            fileUrl: row?.cert_pic1
+        },
+        {
+            fileName: '身份证反面照',
+            fileUrl: row?.cert_pic2
+        },
+        {
+            fileName: '半身照',
+            fileUrl: row?.body_pic
+        },
+    ];
+    imgId.value = row.uuid;
+    showPreviewDialog.value = true;
+
+}
+
 // 重置
 const triggerRefresh = () => {
     dataObj.selectTime = [];
@@ -234,6 +266,11 @@ const handleSizeChange = (e) => {
     dataObj.page_size = e;
     getList();
 };
+
+const emitGetList = () => {
+    showPreviewDialog.value = false;
+    getList();
+}
 
 const changeAction = async (data, type) => {
     ElMessageBox.confirm(

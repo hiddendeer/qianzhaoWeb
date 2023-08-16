@@ -24,6 +24,13 @@ module.exports = defineConfig({
 					'^/api': '/api'
 				}
 			},
+			'/files': {
+				target: process.env.VUE_APP_API_BASEURL,
+				ws: true,
+				pathRewrite: {
+					'^/files': '/files'
+				}
+			},
 			"/getToken": {
 				target: "http://120.48.115.253:18080",
 				changeOrigin: true,
